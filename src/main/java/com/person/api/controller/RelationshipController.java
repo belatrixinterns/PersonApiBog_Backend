@@ -34,5 +34,11 @@ RelationshipRepository RelationshipRepository;
         return relationshipService.findAllRelationship();
     }
 
+	@CrossOrigin
+    @GetMapping("/{id}")
+	public RelationshipEntity getRelationship(@PathVariable Integer id) {
+		return relationshipService.findRelationship(id);
+	}
+	
 	
 }
