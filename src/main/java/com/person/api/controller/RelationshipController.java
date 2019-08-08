@@ -40,5 +40,12 @@ RelationshipRepository RelationshipRepository;
 		return relationshipService.findRelationship(id);
 	}
 	
+	@CrossOrigin
+	@PutMapping("/{id}")
+	public RelationshipEntity updateRelationship(@PathVariable Integer id, @RequestBody RelationshipDto Relationship){
+		
+		return relationshipService.updateRelationship(Relationship);
+	}
+
 	
 }
