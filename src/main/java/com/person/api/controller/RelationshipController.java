@@ -1,5 +1,7 @@
 package com.person.api.controller;
 
+import java.util.List;
+
 import com.person.api.dto.RelationshipDto;
 import com.person.api.entity.RelationshipEntity;
 import com.person.api.repository.RelationshipRepository;
@@ -25,4 +27,12 @@ RelationshipRepository RelationshipRepository;
 	public RelationshipEntity createRelationship(@RequestBody RelationshipDto Relationship){
 		return relationshipService.createRelationship(Relationship);
 	}
+
+	@CrossOrigin
+    @GetMapping("/")
+    public List<RelationshipEntity> getAllRelationship() {
+        return relationshipService.findAllRelationship();
+    }
+
+	
 }
