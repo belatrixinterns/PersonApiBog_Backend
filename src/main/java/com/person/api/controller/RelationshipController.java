@@ -48,4 +48,11 @@ RelationshipRepository RelationshipRepository;
 	}
 
 	
+	@CrossOrigin
+	@DeleteMapping(value = "/{id}")
+	public RelationshipEntity deleteRelationship(@PathVariable Integer id) {
+		
+		return relationshipService.deleteRelationship(id);
+		
+	}
 }
