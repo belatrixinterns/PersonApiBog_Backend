@@ -1,4 +1,4 @@
-package com.person.api.exceptions;
+package com.person.api.exception;
 
 public class EmptyInputException extends Exception{
 
