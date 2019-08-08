@@ -1,6 +1,5 @@
 package com.person.api.controller;
 
-
 import java.util.List;
 
 import com.person.api.dto.PersonDto;
@@ -12,7 +11,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * UsuarioController
+ * PersonController
  */
 @RestController
 @RequestMapping("/person")
