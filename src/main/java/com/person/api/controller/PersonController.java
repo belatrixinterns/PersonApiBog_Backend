@@ -5,6 +5,8 @@ import java.util.List;
 import java.text.SimpleDateFormat;
 
 import com.person.api.constant.MessageConstant;
+import com.person.api.constant.document.DocumentType;
+import com.person.api.constant.document.DocumentTypeFactory;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
 import com.person.api.entity.RelationshipEntity;
@@ -46,17 +48,22 @@ public class PersonController {
 	public PersonEntity getPerson(@PathVariable String id) throws UserNotFoundException, MismatchTypeFieldException  {
 		
 		Integer personId = GeneralValidator.validateId(id);
-		return personService.findPerson(personId);
+		return personService.findPerson(personId); 
 	}
 	
 	@CrossOrigin
 	@PutMapping("/{id}")
-	public PersonEntity updatePerson(@PathVariable String id, @RequestBody PersonDto person) throws InputException{
+	public PersonEntity updatePerson(@PathVariable String id, @RequestBody PersonDto person) throws Exception{
+		
+		GeneralValidator.validateId(id);
+		
 		try { 
+
+			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 			String strDate = dateFormat.format(person.getDate_of_birth());  
 
-			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validationOfDate(strDate) 
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
 				&& GeneralValidator.validationOfNacionality(person.getNationality())){
 				return personService.updatePerson(person);
 			}
@@ -70,12 +77,12 @@ public class PersonController {
 
 	@CrossOrigin
 	@PostMapping("/")
-	public PersonEntity createPerson(@RequestBody PersonDto person) throws InputException{
+	public PersonEntity createPerson(@RequestBody PersonDto person) throws Exception{
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 			String strDate = dateFormat.format(person.getDate_of_birth());  
 
-			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validationOfDate(strDate) 
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name())  && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
 				&& GeneralValidator.validationOfNacionality(person.getNationality())){
 				return personService.createPerson(person);
 			}

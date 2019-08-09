@@ -16,7 +16,7 @@ public interface PersonService {
 
 	public PersonEntity findPerson(Integer idPerson) throws UserNotFoundException;
 	
-	public PersonEntity updatePerson(PersonDto person);
+	public PersonEntity updatePerson(PersonDto person) throws UserNotFoundException;
 
 	public PersonEntity createPerson(PersonDto person);
 	

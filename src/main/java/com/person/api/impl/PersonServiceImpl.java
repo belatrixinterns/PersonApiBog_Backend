@@ -41,8 +41,13 @@ public class PersonServiceImpl implements PersonService{
 	}
 	
 	@Override
-	public PersonEntity updatePerson(PersonDto person) {
-        PersonEntity personM = personRepository.findById(person.getId()).get();
+	public PersonEntity updatePerson(PersonDto person) throws UserNotFoundException {
+		Optional<PersonEntity> personOptional = personRepository.findById(person.getId());
+    	if(!personOptional.isPresent()) {
+    		throw new UserNotFoundException();
+    	}
+		
+        PersonEntity personM = personOptional.get();
 		//update fields
 		personM.setDate_of_birth(person.getDate_of_birth());
 		personM.setDocument_id(person.getDocument_id());

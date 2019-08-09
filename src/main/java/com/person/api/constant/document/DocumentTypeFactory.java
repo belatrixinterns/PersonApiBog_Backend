@@ -1,5 +1,6 @@
 package com.person.api.constant.document;
 
+import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.exception.MismatchTypeFieldException;
 
@@ -22,10 +23,8 @@ public class DocumentTypeFactory {
 		case TypeConstant.DOCUMENT_TYPE_TI:
 			documentType = new DocumentTypeTI(documentTypeIdentifier, documentId);
 			break;
-
-
 		default:
-			break;
+			throw new MismatchTypeFieldException(MessageConstant.INVALID_DOCUMENT_TYPE);
 		}
 		return documentType;
 	}

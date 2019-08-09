@@ -20,7 +20,7 @@ public class MessageConstant {
 	
 	public static final String INVALID_DATE_FORMAT = "The date must have the format aaaa-mm-dd";
 	
-	public static final String INVALID_GENDER_OPTION = "The gender is invalid, the valid gender formats are: 'm from masculine and f from feminine' ";
+	public static final String INVALID_GENDER_OPTION = "The gender is invalid, the valid gender formats are: '1 from masculine and 0 from feminine' ";
 		
 	public static final String INVALID_LENGTH_MESSAGE = "One field has conflicts with the allowed length";
 	
