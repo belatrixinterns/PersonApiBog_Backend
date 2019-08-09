@@ -60,9 +60,15 @@ public class PersonServiceImpl implements PersonService{
 	}
 
 	@Override
-	public PersonEntity deletePerson(Integer idPerson) {
-		PersonEntity person = personRepository.findById(idPerson).get();
-		personRepository.delete(person);		
-		return person;
+	public PersonEntity deletePerson(Integer idPerson) throws UserNotFoundException {
+		Optional<PersonEntity> person = personRepository.findById(idPerson);
+    	if(person.isPresent()) {
+    		PersonEntity currentPerson = person.get();
+    		personRepository.delete(currentPerson);
+    		return currentPerson;
+    	}else {
+    		throw new UserNotFoundException();
+    	}
+    	
 	}
 }

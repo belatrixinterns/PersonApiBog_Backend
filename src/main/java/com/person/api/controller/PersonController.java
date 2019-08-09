@@ -2,7 +2,7 @@ package com.person.api.controller;
 
 import java.text.DateFormat;
 import java.util.List;
-import java.text.SimpleDateFormat;  
+import java.text.SimpleDateFormat;
 
 import com.person.api.constant.MessageConstant;
 import com.person.api.dto.PersonDto;
@@ -89,7 +89,7 @@ public class PersonController {
 	
 	@CrossOrigin
 	@DeleteMapping(value = "/{id}")
-	public PersonEntity deletePerson(@PathVariable Integer id) {
+	public PersonEntity deletePerson(@PathVariable Integer id)  throws UserNotFoundException{
 		List<RelationshipEntity> relations = relationshipService.findByIdFirstPerson(id);
 		for(int i = 0; i < relations.size(); i++){
 			relationshipService.deleteRelationship(relations.get(i).getId());

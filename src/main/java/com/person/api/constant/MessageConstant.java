@@ -25,8 +25,8 @@ public class MessageConstant {
 	public static final String INVALID_LENGTH_MESSAGE = "One field has conflicts with the allowed length";
 	
 	public static final String INVALID_PERSON_NAME_MESSAGE = "The person name contains invalid characters, only allow alphabetic characters and spaces";
-	
-	public static final String MISMATCH_TYPE_FIELD_MESSAGE = "Mismatch type, check the type of the fields";
+
+	public static final String MISMATCH_TYPE_FIELD_MESSAGE = "Mismatch type";
 	
 	public static final String USER_NOT_FOUND_MESSAGE = "The user can't be found, please provide a valid identifier";
 	
