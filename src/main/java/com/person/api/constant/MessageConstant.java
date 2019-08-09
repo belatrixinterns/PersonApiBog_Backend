@@ -20,7 +20,7 @@ public class MessageConstant {
 	
 	public static final String INVALID_DATE_FORMAT = "The date must have the format aaaa-mm-dd";
 	
-	public static final String INVALID_GENDER_OPTION = "The gender is invalid, the valid gender formats are: 'm from masculine and f from feminine' ";
+	public static final String INVALID_GENDER_OPTION = "The gender is invalid, the valid gender formats are: '1 from masculine and 0 from feminine' ";
 		
 	public static final String INVALID_LENGTH_MESSAGE = "One field has conflicts with the allowed length";
 	
@@ -32,6 +32,8 @@ public class MessageConstant {
 	
 	public static final String DOCUMENT_NOT_VALID = "the document id is invalid, please verify the document id provided";
 
+	public static final String INVALID_DOCUMENT_TYPE = "the document type is invalid, only the types  CC, CE or TI are allowed";
+	
 	public static final String INVALID_LAST_NAME_LENGTH = "The length of the last name is invalid";
 	
 	public static final String INVALID_LAST_NAME_FORMAT = "The last name is invalid, don't have special characters or numbers";

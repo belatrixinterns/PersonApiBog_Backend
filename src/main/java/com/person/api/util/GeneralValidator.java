@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.person.api.constant.MessageConstant;
+import com.person.api.constant.document.DocumentTypeFactory;
 import com.person.api.exception.InputException;
 import com.person.api.exception.MismatchTypeFieldException;
 
@@ -71,7 +72,7 @@ public class GeneralValidator {
 	public static boolean validationOfDate(String date) throws InputException{
 		Date enteredDate=null;
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			enteredDate = sdf.parse(date);
 		}catch (Exception ex)
 		{
@@ -82,6 +83,28 @@ public class GeneralValidator {
 			throw new InputException(MessageConstant.INVALID_DATE);
 		}else
 			return true;
+	}
+	
+	public static boolean validateDocument(String documentId, String documenType) throws Exception {
+		
+		if(documentId == null || documentId.length() == 0) {
+			throw new InputException(MessageConstant.DOCUMENT_NOT_VALID);
+		}
+		
+		if(documenType == null || documenType.length() == 0) {
+			throw new InputException(MessageConstant.INVALID_DOCUMENT_TYPE);
+		}
+		
+		DocumentTypeFactory.getDocumentType(documenType, documentId);
+		
+		return true;
+	}
+	
+	public static boolean validateGender(String gender) throws InputException {
+		if(gender == null || gender.length() == 0) {
+			throw new InputException(MessageConstant.INVALID_GENDER_OPTION);
+		}
+		return true;
 	}
 	
 }
