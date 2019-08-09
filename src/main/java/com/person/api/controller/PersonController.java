@@ -1,16 +1,18 @@
 package com.person.api.controller;
 
+import java.text.DateFormat;
 import java.util.List;
+import java.text.SimpleDateFormat;  
 
-
+import com.person.api.constant.MessageConstant;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
+import com.person.api.exception.InputException;
 import com.person.api.exception.MismatchTypeFieldException;
 import com.person.api.exception.UserNotFoundException;
 import com.person.api.repository.PersonRepository;
 import com.person.api.service.PersonService;
 import com.person.api.util.GeneralValidator;
-
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
@@ -43,14 +45,40 @@ PersonRepository personRepository;
 	
 	@CrossOrigin
 	@PutMapping("/{id}")
-	public PersonEntity updatePerson(@PathVariable Integer id, @RequestBody PersonDto person){
-		return personService.updatePerson(person);
+	public PersonEntity updatePerson(@PathVariable String id, @RequestBody PersonDto person) throws InputException{
+		try { 
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+			String strDate = dateFormat.format(person.getDate_of_birth());  
+
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validationOfDate(strDate) 
+				&& GeneralValidator.validationOfNacionality(person.getNationality())){
+				return personService.updatePerson(person);
+			}
+			else{
+				throw new InputException(MessageConstant.INVALID_FORMAT);
+			}
+		} catch (Exception returnedException) {
+			throw returnedException;
+		}
 	}
 
 	@CrossOrigin
 	@PostMapping("/")
-	public PersonEntity createPerson(@RequestBody PersonDto person){
-		return personService.createPerson(person);
+	public PersonEntity createPerson(@RequestBody PersonDto person) throws InputException{
+		try {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+			String strDate = dateFormat.format(person.getDate_of_birth());  
+
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validationOfDate(strDate) 
+				&& GeneralValidator.validationOfNacionality(person.getNationality())){
+				return personService.createPerson(person);
+			}
+			else{
+				throw new InputException(MessageConstant.INVALID_FORMAT);
+			}
+		} catch (Exception returnedException) {
+			throw returnedException;
+		}
 	}
 	
 	@CrossOrigin
