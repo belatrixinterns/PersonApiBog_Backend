@@ -2,15 +2,24 @@ package com.person.api.controller;
 
 import java.util.List;
 
+import com.mysql.cj.protocol.Message;
+import com.person.api.constant.MessageConstant;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
 import com.person.api.entity.RelationshipEntity;
+import com.person.api.exception.DefaultException;
+import com.person.api.exception.MismatchTypeFieldException;
+import com.person.api.exception.UserNotFoundException;
 import com.person.api.repository.PersonRepository;
 import com.person.api.service.PersonService;
 import com.person.api.service.RelationshipService;
+import com.person.api.util.GeneralValidator;
 
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * PersonController
@@ -36,14 +45,15 @@ public class PersonController {
 
 	@CrossOrigin
     @GetMapping("/{id}")
-	public PersonEntity getPerson(@PathVariable Integer id) {
-		return personService.findPerson(id);
+	public PersonEntity getPerson(@PathVariable String id) throws UserNotFoundException, MismatchTypeFieldException  {
+		
+		Integer personId = GeneralValidator.validateId(id);
+		return personService.findPerson(personId);
 	}
 	
 	@CrossOrigin
 	@PutMapping("/{id}")
 	public PersonEntity updatePerson(@PathVariable Integer id, @RequestBody PersonDto person){
-		
 		return personService.updatePerson(person);
 	}
 
