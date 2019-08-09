@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "person")
 public class PersonEntity {
@@ -17,6 +20,8 @@ public class PersonEntity {
     private String name;
     @Column(name = "last_name")
     private String lastName;
+    @JsonProperty("date_of_birth")
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
     @Column(name = "document_type")

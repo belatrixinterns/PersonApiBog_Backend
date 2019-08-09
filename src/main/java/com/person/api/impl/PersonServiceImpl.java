@@ -1,12 +1,16 @@
 package com.person.api.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.person.api.constant.MessageConstant;
 import com.person.api.converter.PersonConverter;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
+import com.person.api.exception.DefaultException;
+import com.person.api.exception.UserNotFoundException;
 import com.person.api.repository.PersonRepository;
 import com.person.api.service.PersonService;
 
@@ -27,8 +31,13 @@ public class PersonServiceImpl implements PersonService{
     }
     
     @Override
-	public PersonEntity findPerson(Integer idPerson) {
-		return personRepository.findById(idPerson).get();
+	public PersonEntity findPerson(Integer idPerson) throws UserNotFoundException{
+    		Optional<PersonEntity> person = personRepository.findById(idPerson);
+        	if(person.isPresent()) {
+        		return person.get();
+        	}else {
+        		throw new UserNotFoundException();
+        	}
 	}
 	
 	@Override
