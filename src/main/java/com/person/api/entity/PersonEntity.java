@@ -1,6 +1,7 @@
 package com.person.api.entity;
 
 import java.util.Date;
+//import java.util.Set;
 
 import javax.persistence.*;
 
@@ -25,6 +26,10 @@ public class PersonEntity {
     private String gender;
     @Column(name = "nationality")
     private String nationality;
+
+    //@OneToMany(cascade=CascadeType.REMOVE)
+    //@JoinColumn(name="id_first_person")
+    //private Set<RelationshipEntity> accounts;
 
     public PersonEntity(){
     }
