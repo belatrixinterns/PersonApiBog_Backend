@@ -23,7 +23,7 @@ public class RelationshipServiceImpl implements RelationshipService{
 	
     @Override
     public List<RelationshipEntity> findAllRelationship(){
-        return StreamSupport.stream(relationshipRepository.findAll().spliterator(), false).collect(Collectors.toList());
+		return StreamSupport.stream(relationshipRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
     
     @Override
@@ -51,5 +51,10 @@ public class RelationshipServiceImpl implements RelationshipService{
 		RelationshipEntity relationship = relationshipRepository.findById(id).get();
 		relationshipRepository.delete(relationship);		
 		return relationship;
+	}
+
+	@Override
+	public List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson){
+		return relationshipRepository.findByIdFirstPerson(idFirstPerson);
 	}
 }

@@ -20,5 +20,7 @@ public interface RelationshipService {
 	public RelationshipEntity createRelationship(RelationshipDto relationship);
 	
 	public RelationshipEntity deleteRelationship(Integer id);
+
+	List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson);
 	
 }
