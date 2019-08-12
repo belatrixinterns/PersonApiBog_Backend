@@ -1,10 +1,16 @@
 package com.person.api.entity;
 
 import java.util.Date;
-//import java.util.Set;
+import java.util.Set;
+
 
 import javax.persistence.*;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(exclude = "books")
 @Entity
 @Table(name = "person")
 public class PersonEntity {
@@ -27,11 +33,15 @@ public class PersonEntity {
     @Column(name = "nationality")
     private String nationality;
 
-    //@OneToMany(cascade=CascadeType.REMOVE)
-    //@JoinColumn(name="id_first_person")
-    //private Set<RelationshipEntity> accounts;
+    @OneToMany(mappedBy = "idFirstPerson", cascade = CascadeType.ALL)
+    private Set<RelationshipEntity> relationship;
+
 
     public PersonEntity(){
+    }
+
+    public PersonEntity(Integer id){
+        this.id = id;
     }
 
     public PersonEntity(Integer id, String documentId, String name, String lastName, Date dateOfBirth, String documentType, String gender, String nationality ){
@@ -94,6 +104,12 @@ public class PersonEntity {
         return nationality;
     }
     /**
+     * @return the relationship
+     */
+    public Set<RelationshipEntity> getRelationship() {
+        return relationship;
+    }
+    /**
      * @param date_of_birth the date_of_birth to set
      */
     public void setDate_of_birth(Date date_of_birth) {
@@ -140,5 +156,11 @@ public class PersonEntity {
      */
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+    /**
+     * @param relationship the relationship to set
+     */
+    public void setRelationship(Set<RelationshipEntity> relationship) {
+        this.relationship = relationship;
     }
 }

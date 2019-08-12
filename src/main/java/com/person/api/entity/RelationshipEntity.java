@@ -2,6 +2,9 @@ package com.person.api.entity;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "relationship")
 public class RelationshipEntity {
@@ -9,19 +12,23 @@ public class RelationshipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "id_first_person")
-    private Integer idFirstPerson;
+    @ManyToOne
+    @JoinColumn(name = "id_first_person")
+    private PersonEntity idFirstPerson;
     @Column(name = "id_second_person")
     private Integer idSecondPerson;
     @Column(name = "id_relation_type")
     private Integer idRelationType;
     
+    //@ManyToOne
+    //@JoinColumn
+    //private PersonEntity personEntity;
 
     public RelationshipEntity(){
     }
 
     public RelationshipEntity(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationType){
-        this.idFirstPerson = idFirstPerson;
+        this.idFirstPerson = new PersonEntity(idFirstPerson);
         this.idSecondPerson = idSecondPerson;
         this.idRelationType = idRelationType;
     }
@@ -36,7 +43,7 @@ public class RelationshipEntity {
      * @return the idFirstPerson
      */
     public Integer getIdFirstPerson() {
-        return idFirstPerson;
+        return idFirstPerson.getId();
     }
     /**
      * @return the idRelationType
@@ -60,7 +67,7 @@ public class RelationshipEntity {
      * @param idFirstPerson the idFirstPerson to set
      */
     public void setIdFirstPerson(Integer idFirstPerson) {
-        this.idFirstPerson = idFirstPerson;
+        this.idFirstPerson.setId(idFirstPerson);
     }
     /**
      * @param idRelationType the idRelationType to set

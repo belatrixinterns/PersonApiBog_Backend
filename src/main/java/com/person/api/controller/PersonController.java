@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/person")
 public class PersonController {
-@Autowired
-PersonRepository personRepository;
+
+	@Autowired
+	PersonRepository personRepository;
     
 	@Autowired
 	private PersonService personService;
