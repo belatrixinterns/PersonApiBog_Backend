@@ -3,6 +3,7 @@ package com.person.api.entity;
 import java.util.Date;
 import java.util.Set;
 
+
 import javax.persistence.*;
 
 import lombok.Data;
@@ -34,6 +35,7 @@ public class PersonEntity {
 
     @OneToMany(mappedBy = "idFirstPerson", cascade = CascadeType.ALL)
     private Set<RelationshipEntity> relationship;
+
 
     public PersonEntity(){
     }
