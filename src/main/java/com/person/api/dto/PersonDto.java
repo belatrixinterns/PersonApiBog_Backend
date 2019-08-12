@@ -14,8 +14,9 @@ public class PersonDto {
     private String documentType;
     private String gender;
     private String nationality;
+    private String contact;
     
-    public PersonDto(String documentId, String name, String lastName, Date dateOfBirth, String documentType, String gender, String nationality ){
+    public PersonDto(String documentId, String name, String lastName, Date dateOfBirth, String documentType, String gender, String nationality, String contact){
         this.documentId=documentId;
         this.name=name;
         this.lastName=lastName;
@@ -23,6 +24,12 @@ public class PersonDto {
         this.documentType=documentType;
         this.gender=gender;
         this.nationality=nationality;
+        if(contact == null){
+            this.contact = "";
+        }
+        else{
+            this.contact = contact;
+        }
     }
 
     /**
@@ -74,6 +81,17 @@ public class PersonDto {
         return nationality;
     }
     /**
+     * @return the contact
+     */
+    public String getContact() {
+        if(contact == null){
+            return "";
+        }
+        else{
+            return contact;
+        }
+    }
+    /**
      * @param date_of_birth the date_of_birth to set
      */
     public void setDate_of_birth(Date date_of_birth) {
@@ -120,5 +138,11 @@ public class PersonDto {
      */
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+    /**
+     * @param contact the contact to set
+     */
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }

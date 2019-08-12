@@ -32,6 +32,8 @@ public class PersonEntity {
     private String gender;
     @Column(name = "nationality")
     private String nationality;
+    @Column(name = "contact")
+    private String contact;
 
     @OneToMany(mappedBy = "idFirstPerson", cascade = CascadeType.ALL)
     private Set<RelationshipEntity> relationship;
@@ -44,7 +46,7 @@ public class PersonEntity {
         this.id = id;
     }
 
-    public PersonEntity(Integer id, String documentId, String name, String lastName, Date dateOfBirth, String documentType, String gender, String nationality ){
+    public PersonEntity(Integer id, String documentId, String name, String lastName, Date dateOfBirth, String documentType, String gender, String nationality, String contact){
         this.id=null;
         this.documentId=documentId;
         this.name=name;
@@ -53,6 +55,12 @@ public class PersonEntity {
         this.documentType=documentType;
         this.gender=gender;
         this.nationality=nationality;
+        if(contact == null){
+            this.contact = "";
+        }
+        else{
+            this.contact = contact;
+        }
     }
 
     /**
@@ -110,6 +118,17 @@ public class PersonEntity {
         return relationship;
     }
     /**
+     * @return the contact
+     */
+    public String getContact() {
+        if(contact == null){
+            return "";
+        }
+        else{
+            return contact;
+        }
+    }
+    /**
      * @param date_of_birth the date_of_birth to set
      */
     public void setDate_of_birth(Date date_of_birth) {
@@ -162,5 +181,11 @@ public class PersonEntity {
      */
     public void setRelationship(Set<RelationshipEntity> relationship) {
         this.relationship = relationship;
+    }
+    /**
+     * @param contact the contact to set
+     */
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }
