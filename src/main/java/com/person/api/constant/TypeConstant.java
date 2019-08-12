@@ -10,7 +10,7 @@ public class TypeConstant {
 	
 	public static final String DOCUMENT_TYPE_TI = "TI";
 	
-	public static final Integer GENDER_FEMENINE = 2;
+	public static final Integer GENDER_FEMENINE = 0;
 	
 	public static final Integer GENDER_MASCULINE = 1;
 	

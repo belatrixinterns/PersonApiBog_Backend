@@ -14,7 +14,7 @@ public class PersonConverter {
     }
 
     public static PersonEntity convertToEntity(PersonDto usuarioDto){
-        return new PersonEntity(null, usuarioDto.getDocument_type(), usuarioDto.getName(), usuarioDto.getLast_name(),
+        return new PersonEntity(null, usuarioDto.getDocument_id(), usuarioDto.getName(), usuarioDto.getLast_name(),
          usuarioDto.getDate_of_birth(), usuarioDto.getDocument_type(), usuarioDto.getGender(), usuarioDto.getNationality());
     }
 }

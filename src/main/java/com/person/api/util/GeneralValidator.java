@@ -6,10 +6,15 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.tomcat.util.http.fileupload.ParameterParser;
+
 import com.person.api.constant.MessageConstant;
+import com.person.api.constant.TypeConstant;
 import com.person.api.constant.document.DocumentTypeFactory;
 import com.person.api.exception.InputException;
 import com.person.api.exception.MismatchTypeFieldException;
+
+import aj.org.objectweb.asm.Type;
 
 
 public class GeneralValidator {
@@ -100,10 +105,23 @@ public class GeneralValidator {
 		return true;
 	}
 	
-	public static boolean validateGender(String gender) throws InputException {
+	public static boolean validateGender(String gender) throws InputException, MismatchTypeFieldException {
+		Integer numericGender = null;
+		
 		if(gender == null || gender.length() == 0) {
-			throw new InputException(MessageConstant.INVALID_GENDER_OPTION);
+			throw new InputException(MessageConstant.INVALID_GENDER_NOT_NULL);
 		}
+		
+		try {
+			numericGender = Integer.parseInt(gender);
+		} catch (Exception e) {
+			throw new MismatchTypeFieldException(MessageConstant.MISMATCH_TYPE_FIELD_MESSAGE+", the gender contains invalid characters, it only allows numbers");
+		}
+		
+		if(!numericGender.equals(TypeConstant.GENDER_MASCULINE) && !numericGender.equals(TypeConstant.GENDER_FEMENINE)) {
+			throw new MismatchTypeFieldException(MessageConstant.INVALID_GENDER_OPTION);
+		}
+		
 		return true;
 	}
 	
