@@ -29,6 +29,8 @@ public class RelationTypeEntity {
 
     public RelationTypeEntity(Integer id){
         this.id = id;
+        this.name = getName();
+
     }
 
     public RelationTypeEntity(String name){

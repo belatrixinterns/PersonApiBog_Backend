@@ -21,10 +21,6 @@ public class RelationshipEntity {
     @JoinColumn(name = "id_relation_type")
     private RelationTypeEntity idRelationType;  
 
-    //@ManyToOne
-    //@JoinColumn
-    //private PersonEntity personEntity;
-
     public RelationshipEntity(){
     }
 
