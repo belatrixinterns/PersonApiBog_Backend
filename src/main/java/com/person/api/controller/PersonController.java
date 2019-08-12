@@ -64,7 +64,7 @@ public class PersonController {
 			String strDate = dateFormat.format(person.getDate_of_birth());  
 
 			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
-				&& GeneralValidator.validationOfNacionality(person.getNationality())){
+				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality())){
 				return personService.updatePerson(person);
 			}
 			else{
@@ -83,7 +83,7 @@ public class PersonController {
 			String strDate = dateFormat.format(person.getDate_of_birth());  
 
 			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name())  && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
-				&& GeneralValidator.validationOfNacionality(person.getNationality())){
+				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality())){
 				return personService.createPerson(person);
 			}
 			else{

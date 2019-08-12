@@ -8,7 +8,7 @@ public class DocumentType {
 	private String documentTypeIdentifier = "";
 	private String documentId = "";
 	
-	public DocumentType(String documentType, String documentId) throws Exception {
+	public DocumentType(String documentType, String documentId) throws MismatchTypeFieldException {
 		this.setDocumentTypeIdentifier(documentType);
 		this.setDocumentId(documentId);
 		this.validateDocumentId();
