@@ -1,7 +1,6 @@
 package com.person.api.repository;
 
 import java.util.List;
-import java.util.stream.Collector;
 
 import com.person.api.entity.RelationshipEntity;
 

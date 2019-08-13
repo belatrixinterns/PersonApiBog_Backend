@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
+import com.person.api.exception.UserNotFoundException;
 
 
 /**
@@ -13,12 +14,12 @@ public interface PersonService {
 
     List<PersonEntity> findAllPerson();
 
-	public PersonEntity findPerson(Integer idPerson);
+	public PersonEntity findPerson(Integer idPerson) throws UserNotFoundException;
 	
-	public PersonEntity updatePerson(PersonDto person);
+	public PersonEntity updatePerson(PersonDto person) throws UserNotFoundException;
 
 	public PersonEntity createPerson(PersonDto person);
 	
-	public PersonEntity deletePerson(Integer idPerson);
+	public PersonEntity deletePerson(Integer idPerson) throws UserNotFoundException;
 	
 }
