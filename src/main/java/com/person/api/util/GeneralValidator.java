@@ -10,6 +10,7 @@ import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.constant.document.DocumentTypeFactory;
 import com.person.api.exception.InputException;
+import com.person.api.exception.InvalidRelationTypeException;
 import com.person.api.exception.MismatchTypeFieldException;
 
 public class GeneralValidator {
@@ -122,6 +123,35 @@ public class GeneralValidator {
 			throw new MismatchTypeFieldException(MessageConstant.INVALID_GENDER_OPTION);
 		}
 		
+		return true;
+	}
+
+	public static boolean validatePerson(String id) throws InputException{
+		Pattern lettersPattern = Pattern.compile("[a-zA-Z]", Pattern.CASE_INSENSITIVE);
+		Pattern numericPattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
+		Matcher matcherLetters = lettersPattern.matcher(id);
+		Matcher matcherNumeric = numericPattern.matcher(id);
+		if (matcherLetters.find() || !matcherNumeric.find()){
+			throw new InputException(MessageConstant.INVALID_USER_ID_FORMAT);
+		}
+		if(id == null || id.isEmpty()){
+			throw new InputException(MessageConstant.INVALID_USER_NOT_NULL);
+		}
+		return true;
+
+	}
+
+	public static boolean validateRelationType(String id) throws InputException, InvalidRelationTypeException{
+		Pattern lettersPattern = Pattern.compile("[a-zA-Z]", Pattern.CASE_INSENSITIVE);
+		Pattern numericPattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
+		Matcher matcherLetters = lettersPattern.matcher(id);
+		Matcher matcherNumeric = numericPattern.matcher(id);
+		if (matcherLetters.find() || !matcherNumeric.find()){
+			throw new InputException(MessageConstant.INVALID_USER_ID_FORMAT);
+		}
+		if(id == null || id.isEmpty()){
+			throw new InputException(MessageConstant.INVALID_USER_NOT_NULL);
+		}
 		return true;
 	}
 	

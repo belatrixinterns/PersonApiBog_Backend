@@ -9,10 +9,10 @@ import com.person.api.entity.RelationshipEntity;
 public class RelationshipConverter {
 
     public static RelationshipDto convertToDto(RelationshipEntity relationshipEntity){
-        return new RelationshipDto(relationshipEntity.getIdFirstPerson(), relationshipEntity.getIdSecondPerson(), relationshipEntity.getIdRelationType());
+        return new RelationshipDto(relationshipEntity.getIdFirstPerson().toString(), relationshipEntity.getIdSecondPerson().toString(), relationshipEntity.getIdRelationType().toString());
     }
 
     public static RelationshipEntity convertToEntity(RelationshipDto relationshipDto){
-        return new RelationshipEntity(relationshipDto.getIdFirstPerson(), relationshipDto.getIdSecondPerson(), relationshipDto.getIdRelationType());
+        return new RelationshipEntity(Integer.parseInt(relationshipDto.getIdFirstPerson()), Integer.parseInt(relationshipDto.getIdSecondPerson()), Integer.parseInt(relationshipDto.getIdRelationType()));
     }
 }
