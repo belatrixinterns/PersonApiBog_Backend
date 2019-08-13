@@ -27,6 +27,8 @@ public class MessageConstant {
 	public static final String MISMATCH_TYPE_FIELD_MESSAGE = "Mismatch type";
 	
 	public static final String USER_NOT_FOUND_MESSAGE = "The user can't be found, please provide a valid identifier";
+
+	public static final String RELATIONSHIP_NOT_FOUND_MESSAGE = "The relationship can't be found, please provide a valid identifier.";
 	
 	public static final String INVALID_LAST_NAME_LENGTH = "The length of the last name is invalid";
 	
