@@ -74,4 +74,17 @@ public class PersonServiceImpl implements PersonService{
     	}
     	
 	}
+
+	@Override
+	public boolean findPersonByCedula(String document, String documentType) {
+		List<PersonEntity> personList = StreamSupport.stream(personRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    	boolean personSearched = false;
+		
+		for (PersonEntity personEntity : personList) {
+			if(personEntity.getDocument_id().equals(document) && personEntity.getDocument_type().equals(documentType)) {
+				personSearched = true;
+			}
+		}
+    	return personSearched;
+	}
 }

@@ -60,9 +60,10 @@ public class PersonController {
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 			String strDate = dateFormat.format(person.getDate_of_birth());  
-
-			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
-				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality())){
+			boolean personHasAlreayExist = this.personService.findPersonByCedula(person.getDocument_id(), person.getDocument_type());
+			
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type(), personHasAlreayExist) && GeneralValidator.validationOfDate(strDate) 
+				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality()) && GeneralValidator.validateContact(person.getContact())){
 				return personService.updatePerson(person);
 			}
 			else{
@@ -78,10 +79,12 @@ public class PersonController {
 	public PersonEntity createPerson(@RequestBody PersonDto person) throws Exception{
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
-			String strDate = dateFormat.format(person.getDate_of_birth());  
-
-			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name())  && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
-				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality())){
+			String strDate = dateFormat.format(person.getDate_of_birth());
+			
+			boolean personHasAlreayExist = this.personService.findPersonByCedula(person.getDocument_id(), person.getDocument_type());
+			
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name())  && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type(), personHasAlreayExist) && GeneralValidator.validationOfDate(strDate) 
+				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality()) && GeneralValidator.validateContact(person.getContact())){
 				return personService.createPerson(person);
 			}
 			else{
@@ -94,11 +97,13 @@ public class PersonController {
 	
 	@CrossOrigin
 	@DeleteMapping(value = "/{id}")
-	public PersonEntity deletePerson(@PathVariable Integer id)  throws UserNotFoundException{
-		List<RelationshipEntity> relations = relationshipService.findByIdFirstPerson(id);
+	public PersonEntity deletePerson(@PathVariable String id)  throws UserNotFoundException, MismatchTypeFieldException{
+		
+		Integer personId = GeneralValidator.validateId(id);
+		List<RelationshipEntity> relations = relationshipService.findByIdFirstPerson(personId);
 		for(int i = 0; i < relations.size(); i++){
 			relationshipService.deleteRelationship(relations.get(i).getId());
 		}
-		return personService.deletePerson(id);
+		return personService.deletePerson(personId);
 	}
 }
