@@ -8,7 +8,7 @@ import com.person.api.constant.MessageConstant;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
 import com.person.api.entity.RelationshipEntity;
-import com.person.api.exception.InputException;
+import com.person.api.exception.BadRequestException;
 import com.person.api.exception.MismatchTypeFieldException;
 import com.person.api.exception.UserNotFoundException;
 import com.person.api.repository.PersonRepository;
@@ -66,7 +66,7 @@ public class PersonController {
 				return personService.updatePerson(person);
 			}
 			else{
-				throw new InputException(MessageConstant.INVALID_FORMAT);
+				throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 			}
 		} catch (Exception returnedException) {
 			throw returnedException;
@@ -85,7 +85,7 @@ public class PersonController {
 				return personService.createPerson(person);
 			}
 			else{
-				throw new InputException(MessageConstant.INVALID_FORMAT);
+				throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 			}
 		} catch (Exception returnedException) {
 			throw returnedException;

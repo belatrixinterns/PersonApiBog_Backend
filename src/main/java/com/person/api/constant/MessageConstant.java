@@ -62,7 +62,15 @@ public class MessageConstant {
 
 	public static final String INVALID_USER_NOT_NULL = "The user can't be empty.";
 
-	public static final String INVALID_USER_ID_FORMAT = "The id typed has a worng format. Please use only numbers.";
+	public static final String INVALID_USER_ID_FORMAT = "The id typed has a wrong format. Please use only numbers.";
+
+	public static final String INVALID_RELATION_TYPE_ID_FORMAT = "The id typed has a wrong format. Please use only numbers.";
 
 	public static final String INVALID_RELATION_TYPE_OPTION = "The id of the relation typed, don't match with any record. Please type a valid one.";
+
+	public static final String INVALID_PERSON_OBJECT_NOT_NULL = "User not found. Please type a valid: ";
+
+	public static final String INVALID_RELATION_TYPE_OBJECT_NOT_NULL = "Relation type not found. Please type a valid id.";
+
+	public static final String INVALID_RELATION_POSIBILITY = "The kind of the relation typed is not allowed. Please try a new one.";
 }
