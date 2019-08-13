@@ -11,6 +11,7 @@ import com.person.api.constant.TypeConstant;
 import com.person.api.constant.document.DocumentTypeFactory;
 import com.person.api.exception.InputException;
 import com.person.api.exception.MismatchTypeFieldException;
+import com.person.api.exception.UserHasAlreadyExistException;
 
 import net.bytebuddy.implementation.bytecode.Throw;
 
@@ -92,10 +93,10 @@ public class GeneralValidator {
 			return true;
 	}
 	
-	public static boolean validateDocument(String documentId, String documenType) throws Exception {
+	public static boolean validateDocument(String documentId, String documenType, boolean documentAlreadyExist) throws Exception {
 		
 		if(documentId == null || documentId.length() == 0) {
-			throw new InputException(MessageConstant.DOCUMENT_NOT_VALID);
+			throw new InputException(MessageConstant.INVALID_DOCUMENT_NOT_NULL);
 		}
 		
 		if(documenType == null || documenType.length() == 0) {
@@ -103,6 +104,11 @@ public class GeneralValidator {
 		}
 		
 		DocumentTypeFactory.getDocumentType(documenType, documentId);
+		
+		if(documentAlreadyExist) {
+			throw new UserHasAlreadyExistException();
+		}
+		
 		
 		return true;
 	}

@@ -60,8 +60,9 @@ public class PersonController {
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 			String strDate = dateFormat.format(person.getDate_of_birth());  
-
-			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
+			boolean personHasAlreayExist = this.personService.findPersonByCedula(person.getDocument_id(), person.getDocument_type());
+			
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name()) && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type(), personHasAlreayExist) && GeneralValidator.validationOfDate(strDate) 
 				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality()) && GeneralValidator.validateContact(person.getContact())){
 				return personService.updatePerson(person);
 			}
@@ -78,9 +79,11 @@ public class PersonController {
 	public PersonEntity createPerson(@RequestBody PersonDto person) throws Exception{
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
-			String strDate = dateFormat.format(person.getDate_of_birth());  
-
-			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name())  && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type()) && GeneralValidator.validationOfDate(strDate) 
+			String strDate = dateFormat.format(person.getDate_of_birth());
+			
+			boolean personHasAlreayExist = this.personService.findPersonByCedula(person.getDocument_id(), person.getDocument_type());
+			
+			if(GeneralValidator.validationOfName(person.getName(), person.getLast_name())  && GeneralValidator.validateDocument(person.getDocument_id(), person.getDocument_type(), personHasAlreayExist) && GeneralValidator.validationOfDate(strDate) 
 				&& GeneralValidator.validateGender(person.getGender()) && GeneralValidator.validationOfNacionality(person.getNationality()) && GeneralValidator.validateContact(person.getContact())){
 				return personService.createPerson(person);
 			}
