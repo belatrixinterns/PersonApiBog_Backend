@@ -35,9 +35,9 @@ public class RelationshipServiceImpl implements RelationshipService{
 	public RelationshipEntity updateRelationship(RelationshipDto relationship) {
         RelationshipEntity relationshipM = relationshipRepository.findById(relationship.getId()).get();
 		//update fields
-		relationshipM.setIdFirstPerson(relationship.getIdFirstPerson());
-		relationshipM.setIdSecondPerson(relationship.getIdSecondPerson());
-		relationshipM.setIdRelationType(relationship.getIdRelationType());
+		relationshipM.setIdFirstPerson(Integer.parseInt(relationship.getIdFirstPerson()));
+		relationshipM.setIdSecondPerson(Integer.parseInt(relationship.getIdSecondPerson()));
+		relationshipM.setIdRelationType(Integer.parseInt(relationship.getIdRelationType()));
 		return relationshipRepository.save(relationshipM);
 	}
 

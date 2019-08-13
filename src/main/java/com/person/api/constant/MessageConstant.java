@@ -59,4 +59,10 @@ public class MessageConstant {
 	public static final String DOCUMENT_NOT_VALID = "the document id is invalid, please verify the document id provided";
 	
 	public static final String INVALID_DOCUMENT_TYPE = "the document type is invalid, only the types  CC, CE or TI are allowed";
+
+	public static final String INVALID_USER_NOT_NULL = "The user can't be empty.";
+
+	public static final String INVALID_USER_ID_FORMAT = "The id typed has a worng format. Please use only numbers.";
+
+	public static final String INVALID_RELATION_TYPE_OPTION = "The id of the relation typed, don't match with any record. Please type a valid one.";
 }
