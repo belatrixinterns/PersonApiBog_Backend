@@ -6,16 +6,11 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.tomcat.util.http.fileupload.ParameterParser;
-
 import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.constant.document.DocumentTypeFactory;
 import com.person.api.exception.InputException;
 import com.person.api.exception.MismatchTypeFieldException;
-
-import aj.org.objectweb.asm.Type;
-
 
 public class GeneralValidator {
 	
@@ -47,13 +42,16 @@ public class GeneralValidator {
 		if(lastName.length() > 25){
 			throw new InputException(MessageConstant.INVALID_LAST_NAME_LENGTH);
 		}
-		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-		Matcher m = p.matcher(name);
-		if (m.find()){
+		Pattern lettersPattern = Pattern.compile("/^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$/", Pattern.CASE_INSENSITIVE);
+		Pattern numericPattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
+		Matcher matcherLetters = lettersPattern.matcher(name);
+		Matcher matcherNumeric = numericPattern.matcher(name);
+		if (!matcherLetters.find() && matcherNumeric.find()){
 			throw new InputException(MessageConstant.INVALID_NAME_FORMAT);
 		}
-		m = p.matcher(lastName);
-		if (m.find()){
+		matcherLetters = lettersPattern.matcher(lastName);
+		matcherNumeric = numericPattern.matcher(lastName);
+		if (!matcherLetters.find() && matcherNumeric.find()){
 			throw new InputException(MessageConstant.INVALID_LAST_NAME_FORMAT);
 		}
 		return true;
@@ -63,12 +61,14 @@ public class GeneralValidator {
 		if(nacionality == null || nacionality.length() == 0){
 			throw new InputException(MessageConstant.INVALID_NACIONALITY_NOT_NULL);
 		}
-		if(nacionality.length() > 25){
+		if(nacionality.length() > 3){
 			throw new InputException(MessageConstant.INVALID_NACIONALITY_LENGTH);
 		}
-		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-		Matcher m = p.matcher(nacionality);
-		if (m.find()){
+        Pattern lettersPattern = Pattern.compile("[a-zA-Z]", Pattern.CASE_INSENSITIVE);
+		Pattern numericPattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
+		Matcher matcherLetters = lettersPattern.matcher(nacionality);
+		Matcher matcherNumeric = numericPattern.matcher(nacionality);
+		if (matcherLetters.find() || !matcherNumeric.find()){
 			throw new InputException(MessageConstant.INVALID_NACIONALITY_FORMAT);
 		}
 		return true;
@@ -77,7 +77,7 @@ public class GeneralValidator {
 	public static boolean validationOfDate(String date) throws InputException{
 		Date enteredDate=null;
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 			enteredDate = sdf.parse(date);
 		}catch (Exception ex)
 		{

@@ -5,8 +5,6 @@ import java.util.List;
 import java.text.SimpleDateFormat;
 
 import com.person.api.constant.MessageConstant;
-import com.person.api.constant.document.DocumentType;
-import com.person.api.constant.document.DocumentTypeFactory;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
 import com.person.api.entity.RelationshipEntity;

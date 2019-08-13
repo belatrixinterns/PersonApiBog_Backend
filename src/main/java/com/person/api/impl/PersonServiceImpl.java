@@ -5,11 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import com.person.api.constant.MessageConstant;
 import com.person.api.converter.PersonConverter;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
-import com.person.api.exception.DefaultException;
 import com.person.api.exception.UserNotFoundException;
 import com.person.api.repository.PersonRepository;
 import com.person.api.service.PersonService;

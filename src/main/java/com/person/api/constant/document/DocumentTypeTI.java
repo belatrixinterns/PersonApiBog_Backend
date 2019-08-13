@@ -1,7 +1,6 @@
 package com.person.api.constant.document;
 
 import com.person.api.constant.TypeConstant;
-import com.person.api.exception.MismatchTypeFieldException;
 
 public class DocumentTypeTI extends DocumentType{
 

@@ -12,7 +12,7 @@ public class MessageConstant {
 	
 	public static final String DUPLICATE_PERSON_DOCUMENT_ID_MESSAGE = "The person with that document has already exist, please change it";
 
-	public static final String DUPLICATE_PERSON_IDENTIFIER_MESSAGE = "The person id has already exist, please change it";
+	public static final String DUPLICATE_PERSON_IDENTIFIER_MESSAGE = "The person document id has already exist, please change it";
 	
 	public static final String EMPTY_FIELD_MESSAGE = "Empty field, please check your request";
 	
@@ -30,15 +30,15 @@ public class MessageConstant {
 	
 	public static final String INVALID_LAST_NAME_LENGTH = "The length of the last name is invalid";
 	
-	public static final String INVALID_LAST_NAME_FORMAT = "The last name is invalid, don't have special characters or numbers";
+	public static final String INVALID_LAST_NAME_FORMAT = "The last name is invalid, have special characters or numbers";
 	
 	public static final String INVALID_NAME_LENGTH = "The length of the name is invalid";
 	
-	public static final String INVALID_NAME_FORMAT = "The name is invalid, don't have special characters or numbers";
+	public static final String INVALID_NAME_FORMAT = "The name is invalid, have special characters or numbers";
 	
 	public static final String INVALID_DATE = "The date is invalid";
 	
-	public static final String INVALID_LAST_NAME_NOT_NULL = "The last name cant be empty";
+	public static final String INVALID_LAST_NAME_NOT_NULL = "The last name can't be empty";
 	
 	public static final String INVALID_NAME_NOT_NULL = "The name cant be empty";
 	
@@ -48,9 +48,13 @@ public class MessageConstant {
 	
 	public static final String INVALID_NACIONALITY_LENGTH = "The length of the nacionality is invalid ";
 	
-	public static final String INVALID_NACIONALITY_FORMAT = "The nacionality is invalid, don't have special characters or numbers ";
+	public static final String INVALID_NACIONALITY_FORMAT = "The nacionality is invalid, don't have special characters or letters ";
 
 	public static final String INVALID_GENDER_NOT_NULL = "The gender can't be empty";
+
+	public static final String INVALID_GENDER_OPTION = "The gender is invalid, the valid gender formats are: 'masculine: 1 or femenine: 0' ";
 	
-	public static final String INVALID_GENDER_OPTION = "The gender is invalid, the valid gender formats are: '1 from masculine and 0 from femenine' ";
+	public static final String DOCUMENT_NOT_VALID = "the document id is invalid, please verify the document id provided";
+	
+	public static final String INVALID_DOCUMENT_TYPE = "the document type is invalid, only the types  CC, CE or TI are allowed";
 }
