@@ -5,11 +5,11 @@ package com.person.api.dto;
  */
 public class RelationshipDto {
     private Integer id;
-    private Integer idFirstPerson;
-    private Integer idSecondPerson;
-    private Integer idRelationType;
+    private String idFirstPerson;
+    private String idSecondPerson;
+    private String idRelationType;
     
-    public RelationshipDto(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationType){
+    public RelationshipDto(String idFirstPerson, String idSecondPerson, String idRelationType){
         this.idFirstPerson = idFirstPerson;
         this.idSecondPerson = idSecondPerson;
         this.idRelationType = idRelationType;
@@ -26,19 +26,19 @@ public class RelationshipDto {
     /**
      * @return the idFirstPerson
      */
-    public Integer getIdFirstPerson() {
+    public String getIdFirstPerson() {
         return idFirstPerson;
     }
     /**
      * @return the idRelationType
      */
-    public Integer getIdRelationType() {
+    public String getIdRelationType() {
         return idRelationType;
     }
     /**
      * @return the idSecondPerson
      */
-    public Integer getIdSecondPerson() {
+    public String getIdSecondPerson() {
         return idSecondPerson;
     }
     /**
@@ -50,19 +50,19 @@ public class RelationshipDto {
     /**
      * @param idFirstPerson the idFirstPerson to set
      */
-    public void setIdFirstPerson(Integer idFirstPerson) {
+    public void setIdFirstPerson(String idFirstPerson) {
         this.idFirstPerson = idFirstPerson;
     }
     /**
      * @param idRelationType the idRelationType to set
      */
-    public void setIdRelationType(Integer idRelationType) {
+    public void setIdRelationType(String idRelationType) {
         this.idRelationType = idRelationType;
     }
     /**
      * @param idSecondPerson the idSecondPerson to set
      */
-    public void setIdSecondPerson(Integer idSecondPerson) {
+    public void setIdSecondPerson(String idSecondPerson) {
         this.idSecondPerson = idSecondPerson;
     }
 }

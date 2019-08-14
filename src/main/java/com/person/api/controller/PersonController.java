@@ -7,13 +7,11 @@ import java.text.SimpleDateFormat;
 import com.person.api.constant.MessageConstant;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
-import com.person.api.entity.RelationshipEntity;
-import com.person.api.exception.InputException;
+import com.person.api.exception.BadRequestException;
 import com.person.api.exception.MismatchTypeFieldException;
 import com.person.api.exception.UserNotFoundException;
 import com.person.api.repository.PersonRepository;
 import com.person.api.service.PersonService;
-import com.person.api.service.RelationshipService;
 import com.person.api.util.GeneralValidator;
 
 import org.springframework.beans.factory.annotation.*;
@@ -31,9 +29,6 @@ public class PersonController {
     
 	@Autowired
 	private PersonService personService;
-
-	@Autowired
-	private RelationshipService relationshipService;
 	
 	@CrossOrigin
     @GetMapping("/")
@@ -52,12 +47,10 @@ public class PersonController {
 	@CrossOrigin
 	@PutMapping("/{id}")
 	public PersonEntity updatePerson(@PathVariable String id, @RequestBody PersonDto person) throws Exception{
-		
-		GeneralValidator.validateId(id);
-		
 		try { 
+			Integer idPerson =  GeneralValidator.validateId(id);
+			person.setId(idPerson);
 
-			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 			String strDate = dateFormat.format(person.getDate_of_birth());  
 			boolean personHasAlreayExist = this.personService.findPersonByCedula(person.getDocument_id(), person.getDocument_type());
@@ -67,7 +60,7 @@ public class PersonController {
 				return personService.updatePerson(person);
 			}
 			else{
-				throw new InputException(MessageConstant.INVALID_FORMAT);
+				throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 			}
 		} catch (Exception returnedException) {
 			throw returnedException;
@@ -88,7 +81,7 @@ public class PersonController {
 				return personService.createPerson(person);
 			}
 			else{
-				throw new InputException(MessageConstant.INVALID_FORMAT);
+				throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 			}
 		} catch (Exception returnedException) {
 			throw returnedException;
@@ -98,12 +91,7 @@ public class PersonController {
 	@CrossOrigin
 	@DeleteMapping(value = "/{id}")
 	public PersonEntity deletePerson(@PathVariable String id)  throws UserNotFoundException, MismatchTypeFieldException{
-		
-		Integer personId = GeneralValidator.validateId(id);
-		List<RelationshipEntity> relations = relationshipService.findByIdFirstPerson(personId);
-		for(int i = 0; i < relations.size(); i++){
-			relationshipService.deleteRelationship(relations.get(i).getId());
-		}
-		return personService.deletePerson(personId);
+		  Integer personId = GeneralValidator.validateId(id);
+			return personService.deletePerson(personId);
 	}
 }

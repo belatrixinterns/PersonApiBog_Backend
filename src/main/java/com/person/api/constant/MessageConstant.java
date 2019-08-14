@@ -27,6 +27,8 @@ public class MessageConstant {
 	public static final String MISMATCH_TYPE_FIELD_MESSAGE = "Mismatch type";
 	
 	public static final String USER_NOT_FOUND_MESSAGE = "The user can't be found, please provide a valid identifier";
+
+	public static final String RELATIONSHIP_NOT_FOUND_MESSAGE = "The relationship can't be found, please provide a valid identifier.";
 	
 	public static final String USER_HAS_ALREADY_EXIST = "The user identified by that document id and document type has alredy exist";
 			
@@ -61,8 +63,23 @@ public class MessageConstant {
 	public static final String INVALID_DOCUMENT_FIELD = MessageConstant.MISMATCH_TYPE_FIELD_MESSAGE+", the document id must have numeric characters";
 	
 	public static final String INVALID_DOCUMENT_TYPE = "the document type is invalid, only the types  CC, CE or TI are allowed";
-
-	public static final String INVALID_DOCUMENT_CE_LENGTH = MessageConstant.INVALID_LENGTH_MESSAGE+", the document id for document type: CE has a max lenght of 20";
+  
+  public static final String INVALID_DOCUMENT_CE_LENGTH = MessageConstant.INVALID_LENGTH_MESSAGE+", the document id for document type: CE has a max lenght of 20";
 
 	public static final String INVALID_DOCUMENT_CE = MessageConstant.MISMATCH_TYPE_FIELD_MESSAGE+", the document id for document type: CE only allow alphanumerical characters";
+  
+	public static final String INVALID_USER_NOT_NULL = "The user can't be empty.";
+
+	public static final String INVALID_USER_ID_FORMAT = "The id typed has a wrong format. Please use only numbers.";
+
+	public static final String INVALID_RELATION_TYPE_ID_FORMAT = "The id typed has a wrong format. Please use only numbers.";
+
+	public static final String INVALID_RELATION_TYPE_OPTION = "The id of the relation typed, don't match with any record. Please type a valid one.";
+
+	public static final String INVALID_PERSON_OBJECT_NOT_NULL = "User not found. Please type a valid: ";
+
+	public static final String INVALID_RELATION_TYPE_OBJECT_NOT_NULL = "Relation type not found. Please type a valid id.";
+
+	public static final String INVALID_RELATION_POSIBILITY = "The kind of the relation typed is not allowed. Please try a new one.";
+
 }
