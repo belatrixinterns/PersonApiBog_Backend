@@ -13,5 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RelationshipRepository extends CrudRepository<RelationshipEntity, Integer>{
     List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson);
+    List<RelationshipEntity> findByIdFirstPersonAndIdSecondPerson(Integer idFirstPerson, Integer idSecondPerson);
     
 }

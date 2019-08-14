@@ -21,6 +21,7 @@ public interface RelationshipService {
 	
 	public RelationshipEntity deleteRelationship(Integer id);
 
-	List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson);
+	public List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson);
 	
+	public List<RelationshipEntity> findByIdFirstPersonAndIdSecondPerson(Integer idFirstPerson, Integer idSecondPerson);
 }

@@ -57,4 +57,9 @@ public class RelationshipServiceImpl implements RelationshipService{
 	public List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson){
 		return relationshipRepository.findByIdFirstPerson(idFirstPerson);
 	}
+
+	@Override
+	public List<RelationshipEntity> findByIdFirstPersonAndIdSecondPerson(Integer idFirstPerson, Integer idSecondPerson){
+		return relationshipRepository.findByIdFirstPersonAndIdSecondPerson(idFirstPerson, idSecondPerson);
+	}
 }

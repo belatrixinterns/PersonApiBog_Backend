@@ -52,12 +52,10 @@ public class PersonController {
 	@CrossOrigin
 	@PutMapping("/{id}")
 	public PersonEntity updatePerson(@PathVariable String id, @RequestBody PersonDto person) throws Exception{
-		
-		GeneralValidator.validateId(id);
-		
 		try { 
+			Integer idPerson =  GeneralValidator.validateId(id);
+			person.setId(idPerson);
 
-			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 			String strDate = dateFormat.format(person.getDate_of_birth());  
 
