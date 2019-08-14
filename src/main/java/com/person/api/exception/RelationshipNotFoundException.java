@@ -12,5 +12,9 @@ public class RelationshipNotFoundException extends Exception{
 
 	public RelationshipNotFoundException() {
 		super(MessageConstant.RELATIONSHIP_NOT_FOUND_MESSAGE);
+	}
+	
+	public RelationshipNotFoundException(String message) {
+		super(message);
     }
 }
