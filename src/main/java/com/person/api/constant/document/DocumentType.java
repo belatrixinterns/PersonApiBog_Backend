@@ -17,13 +17,13 @@ public class DocumentType {
 	public  void validateDocumentId() throws MismatchTypeFieldException {
 
 		if(this.getDocumentId().length() > 10) {			
-			throw new MismatchTypeFieldException(MessageConstant.INVALID_LENGTH_MESSAGE+", the document id has a max lenght of 10");
+			throw new MismatchTypeFieldException(MessageConstant.INVALID_DOCUMENT_CE_LENGTH);
 		}
 		
 		try {
 			Integer.parseInt(this.getDocumentId());
 		} catch (Exception e) {
-			throw new MismatchTypeFieldException(MessageConstant.MISMATCH_TYPE_FIELD_MESSAGE+", the document id must have numeric characters");
+			throw new MismatchTypeFieldException(MessageConstant.INVALID_DOCUMENT_FIELD);
 		}
 		
 	}

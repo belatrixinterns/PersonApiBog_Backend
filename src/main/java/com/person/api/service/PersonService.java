@@ -16,10 +16,12 @@ public interface PersonService {
 
 	public PersonEntity findPerson(Integer idPerson) throws UserNotFoundException;
 	
+	public boolean findPersonByCedula(String document, String documentType);
+	
 	public PersonEntity updatePerson(PersonDto person) throws UserNotFoundException;
 
 	public PersonEntity createPerson(PersonDto person);
 	
 	public PersonEntity deletePerson(Integer idPerson) throws UserNotFoundException;
-	
+
 }
