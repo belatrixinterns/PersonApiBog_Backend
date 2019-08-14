@@ -1,10 +1,13 @@
 package com.person.api.util;
 
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.tomcat.util.bcel.classfile.Constant;
 
 import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
@@ -80,11 +83,19 @@ public class GeneralValidator {
 		return true;
 	}
 
-	public static boolean validationOfDate(String date) throws BadRequestException{
+	public static boolean validationOfDate(Date date) throws BadRequestException{
+		
+		if(date == null) {
+			throw new BadRequestException(MessageConstant.INVALID_DATE_NOT_NULL);
+		}
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+		String strDate = dateFormat.format(date);
+		
 		Date enteredDate=null;
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-			enteredDate = sdf.parse(date);
+			enteredDate = sdf.parse(strDate);
 		}catch (Exception ex)
 		{
 			throw new BadRequestException(MessageConstant.INVALID_DATE);
@@ -192,7 +203,7 @@ public class GeneralValidator {
 		return true;
 	}
 	
-	public static boolean validateContact(String contact) throws InputException, MismatchTypeFieldException {
+	public static boolean validateContact(String contact) throws BadRequestException, MismatchTypeFieldException {
 		if(contact == null || contact.length() == 0) {
 			return true;
 		}
@@ -203,11 +214,11 @@ public class GeneralValidator {
 		boolean findedEmailPattern = emailPattern.matcher(contact).find();
 		
 		if(findedNumberPattern && contact.length() > 15) {
-			throw new InputException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact number has a maximum length of 15");
+			throw new BadRequestException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact number has a maximum length of 15");
 		}
 		
 		if(findedEmailPattern && contact.length() > 30) {
-			throw new InputException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact email has a maximum length of 30");
+			throw new BadRequestException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact email has a maximum length of 30");
 		}
 		
 		if(!findedEmailPattern && !findedNumberPattern) {
