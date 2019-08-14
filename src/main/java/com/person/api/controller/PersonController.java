@@ -7,13 +7,11 @@ import java.text.SimpleDateFormat;
 import com.person.api.constant.MessageConstant;
 import com.person.api.dto.PersonDto;
 import com.person.api.entity.PersonEntity;
-import com.person.api.entity.RelationshipEntity;
 import com.person.api.exception.BadRequestException;
 import com.person.api.exception.MismatchTypeFieldException;
 import com.person.api.exception.UserNotFoundException;
 import com.person.api.repository.PersonRepository;
 import com.person.api.service.PersonService;
-import com.person.api.service.RelationshipService;
 import com.person.api.util.GeneralValidator;
 
 import org.springframework.beans.factory.annotation.*;
@@ -31,9 +29,6 @@ public class PersonController {
     
 	@Autowired
 	private PersonService personService;
-
-	@Autowired
-	private RelationshipService relationshipService;
 	
 	@CrossOrigin
     @GetMapping("/")
@@ -93,10 +88,6 @@ public class PersonController {
 	@CrossOrigin
 	@DeleteMapping(value = "/{id}")
 	public PersonEntity deletePerson(@PathVariable Integer id)  throws UserNotFoundException{
-		List<RelationshipEntity> relations = relationshipService.findByIdFirstPerson(id);
-		for(int i = 0; i < relations.size(); i++){
-			relationshipService.deleteRelationship(relations.get(i).getId());
-		}
 		return personService.deletePerson(id);
 	}
 }
