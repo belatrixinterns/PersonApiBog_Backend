@@ -16,8 +16,6 @@ import com.person.api.exception.InvalidRelationTypeException;
 import com.person.api.exception.MismatchTypeFieldException;
 import com.person.api.exception.UserHasAlreadyExistException;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 public class GeneralValidator {
 
 	private GeneralValidator() {
@@ -194,7 +192,7 @@ public class GeneralValidator {
 		return true;
 	}
 	
-	public static boolean validateContact(String contact) throws InputException, MismatchTypeFieldException {
+	public static boolean validateContact(String contact) throws BadRequestException, MismatchTypeFieldException {
 		if(contact == null || contact.length() == 0) {
 			return true;
 		}
@@ -205,11 +203,11 @@ public class GeneralValidator {
 		boolean findedEmailPattern = emailPattern.matcher(contact).find();
 		
 		if(findedNumberPattern && contact.length() > 15) {
-			throw new InputException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact number has a maximum length of 15");
+			throw new BadRequestException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact number has a maximum length of 15");
 		}
 		
 		if(findedEmailPattern && contact.length() > 30) {
-			throw new InputException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact email has a maximum length of 30");
+			throw new BadRequestException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact email has a maximum length of 30");
 		}
 		
 		if(!findedEmailPattern && !findedNumberPattern) {
