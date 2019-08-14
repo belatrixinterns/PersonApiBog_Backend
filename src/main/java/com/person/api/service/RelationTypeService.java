@@ -1,6 +1,7 @@
 package com.person.api.service;
 
 import com.person.api.entity.RelationTypeEntity;
+import com.person.api.exception.BadRequestException;
 
 
 /**
@@ -8,7 +9,7 @@ import com.person.api.entity.RelationTypeEntity;
  */
 public interface RelationTypeService {
 
-	public RelationTypeEntity findRelationType(Integer id);
+	public RelationTypeEntity findRelationType(Integer id) throws BadRequestException;
 	
 	
 }
