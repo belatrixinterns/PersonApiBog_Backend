@@ -14,6 +14,9 @@ import com.person.api.entity.RelationTypeEntity;
 import com.person.api.exception.BadRequestException;
 import com.person.api.exception.InvalidRelationTypeException;
 import com.person.api.exception.MismatchTypeFieldException;
+import com.person.api.exception.UserHasAlreadyExistException;
+
+import net.bytebuddy.implementation.bytecode.Throw;
 
 public class GeneralValidator {
 
@@ -93,10 +96,10 @@ public class GeneralValidator {
 			return true;
 	}
 	
-	public static boolean validateDocument(String documentId, String documenType) throws Exception {
+	public static boolean validateDocument(String documentId, String documenType, boolean documentAlreadyExist) throws Exception {
 		
 		if(documentId == null || documentId.length() == 0) {
-			throw new BadRequestException(MessageConstant.DOCUMENT_NOT_VALID);
+			throw new BadRequestException(MessageConstant.INVALID_DOCUMENT_NOT_NULL);
 		}
 		
 		if(documenType == null || documenType.length() == 0) {
@@ -104,6 +107,11 @@ public class GeneralValidator {
 		}
 		
 		DocumentTypeFactory.getDocumentType(documenType, documentId);
+		
+		if(documentAlreadyExist) {
+			throw new UserHasAlreadyExistException();
+		}
+		
 		
 		return true;
 	}
@@ -183,6 +191,32 @@ public class GeneralValidator {
 			|| relationType.getId() == TypeConstant.RELATION_TYPE_BROTHER || relationType.getId() == TypeConstant.RELATION_TYPE_GRANDPARENT)){
 			throw new BadRequestException(MessageConstant.INVALID_RELATION_POSIBILITY);
 		}
+		return true;
+	}
+	
+	public static boolean validateContact(String contact) throws InputException, MismatchTypeFieldException {
+		if(contact == null || contact.length() == 0) {
+			return true;
+		}
+		Pattern numericPattern = Pattern.compile("^[0-9]+$", Pattern.CASE_INSENSITIVE);
+		Pattern emailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		boolean findedNumberPattern = numericPattern.matcher(contact).find();
+		boolean findedEmailPattern = emailPattern.matcher(contact).find();
+		
+		if(findedNumberPattern && contact.length() > 15) {
+			throw new InputException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact number has a maximum length of 15");
+		}
+		
+		if(findedEmailPattern && contact.length() > 30) {
+			throw new InputException(MessageConstant.INVALID_LENGTH_MESSAGE+", the contact email has a maximum length of 30");
+		}
+		
+		if(!findedEmailPattern && !findedNumberPattern) {
+			throw new MismatchTypeFieldException(MessageConstant.MISMATCH_TYPE_FIELD_MESSAGE+", please verify that your contact be a number or email");
+		}
+		
+		
 		return true;
 	}
 	
