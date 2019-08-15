@@ -89,7 +89,20 @@ public class RelationshipServiceImpl implements RelationshipService{
         if(relationship.size() > 0) {
         	return relationship;
         }else {
-        	throw new RelationshipNotFoundException(MessageConstant.INVALID_RELATION_TYPE_OBJECT_NOT_NULL);
+        	throw new RelationshipNotFoundException(MessageConstant.RELATIONSHIP_NOT_FOUND_MESSAGE);
         }
+	}
+
+	@Override
+	public boolean findRelationshipExistence(Integer idFirstPerson, Integer idSecondPerson) throws Exception{
+		List<RelationshipEntity> relationship = relationshipRepository.findRelationshipExistence(idFirstPerson, idSecondPerson);
+		if(relationship.size() > 0) {
+        	return true;
+        }else if(relationship.size() == 0){
+        	return false;
+		}
+		else{
+			throw new Exception(MessageConstant.DEFAULT_MESSAGE);
+		}
 	}
 }

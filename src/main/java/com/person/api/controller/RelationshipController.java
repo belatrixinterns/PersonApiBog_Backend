@@ -54,6 +54,9 @@ RelationshipRepository RelationshipRepository;
 				if(!GeneralValidator.validateRelationIntegrity(personOne, personTwo, relationType)){
 					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 				}
+				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId())){
+					throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
+				}
 				return relationshipService.createRelationship(relationship);
 			}
 			else{
@@ -102,11 +105,5 @@ RelationshipRepository RelationshipRepository;
 		Integer personId = GeneralValidator.validateId(id);
 		return relationshipService.deleteRelationship(personId);
 		
-	}
-
-	@CrossOrigin
-	@GetMapping(value = "/test/")
-	public List<RelationshipEntity> searchMultiple(@RequestBody RelationshipDto relationship) throws RelationshipNotFoundException {
-		return relationshipService.findByIdFirstPersonAndIdSecondPerson(Integer.parseInt(relationship.getIdFirstPerson()), Integer.parseInt(relationship.getIdSecondPerson()));
 	}
 }
