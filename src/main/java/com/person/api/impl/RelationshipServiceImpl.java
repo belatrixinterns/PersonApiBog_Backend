@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import com.person.api.constant.MessageConstant;
+import com.person.api.constant.TypeConstant;
 import com.person.api.converter.RelationshipConverter;
 import com.person.api.dto.RelationshipDto;
 import com.person.api.entity.RelationshipEntity;
@@ -91,5 +92,18 @@ public class RelationshipServiceImpl implements RelationshipService{
         }else {
         	throw new RelationshipNotFoundException(MessageConstant.INVALID_RELATION_TYPE_OBJECT_NOT_NULL);
         }
+	}
+
+	public Integer findByIdFirstPersonAndIdRelationship(Integer idRelationship, Integer firstIdPerson){
+		List<RelationshipEntity> searchRelationchip = relationshipRepository.findByIdFirstPersonAndIdRelationship(idRelationship, firstIdPerson);
+		if(searchRelationchip.size() > 0){
+			if(idRelationship == TypeConstant.RELATION_TYPE_BROTHER || idRelationship == TypeConstant.RELATION_TYPE_GRANDMOTHER || idRelationship == TypeConstant.RELATION_TYPE_GRANDPARENT ){
+				return searchRelationchip.size();
+			}
+			else{
+				return -1;
+			}
+		}
+		return 0;
 	}
 }

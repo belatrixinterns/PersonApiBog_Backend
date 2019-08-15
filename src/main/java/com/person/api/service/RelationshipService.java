@@ -25,4 +25,6 @@ public interface RelationshipService {
 	public List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson) throws RelationshipNotFoundException;
 	
 	public List<RelationshipEntity> findByIdFirstPersonAndIdSecondPerson(Integer idFirstPerson, Integer idSecondPerson) throws RelationshipNotFoundException;
+
+	public Integer findByIdFirstPersonAndIdRelationship(Integer idRelationship, Integer firstIdPerson);
 }

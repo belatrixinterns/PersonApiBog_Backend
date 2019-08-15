@@ -82,4 +82,9 @@ public class MessageConstant {
 
 	public static final String INVALID_RELATION_POSIBILITY = "The kind of the relation typed is not allowed. Please try a new one.";
 
+	public static final String INVALID_RELATION_EXIST = "The relation allready exist.";
+
+	public static final String INVALID_RELATION_ONLY_TWO_GRANDPARENTS = "The relation two relations allready exist.";
+
+
 }
