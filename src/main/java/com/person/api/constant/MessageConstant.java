@@ -6,7 +6,7 @@ public class MessageConstant {
 	    throw new IllegalStateException("Utility class");
 	  }
 	
-	public static final String AFTER_TODAY_MESSAGE = "The person must be exist, check the date";
+	public static final String AFTER_TODAY_MESSAGE = "The person can't not have a birth day which is a future date or a date before of 1900";
 	
 	public static final String DEFAULT_MESSAGE = "The app crashed, please contact to the administrator";
 	
@@ -20,6 +20,8 @@ public class MessageConstant {
 	
 	public static final String INVALID_DATE_FORMAT = "The date must have the format aaaa-mm-dd";
 		
+	public static final String INVALID_DATE_NOT_NULL = "The date can't be empty";
+	
 	public static final String INVALID_LENGTH_MESSAGE = "One field has conflicts with the allowed length";
 	
 	public static final String INVALID_PERSON_NAME_MESSAGE = "The person name contains invalid characters, only allow alphabetic characters and spaces";

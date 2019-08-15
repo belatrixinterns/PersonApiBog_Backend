@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.constant.document.DocumentTypeFactory;
@@ -19,7 +20,10 @@ import com.person.api.exception.UserHasAlreadyExistException;
 public class GeneralValidator {
 
 	private GeneralValidator() {
+	
 	}
+		
+	
 	
 	public static Integer validateId(String personId) throws MismatchTypeFieldException {
 		Integer objectId = null;
@@ -79,19 +83,27 @@ public class GeneralValidator {
 	}
 
 	public static boolean validationOfDate(String date) throws BadRequestException{
-		Date enteredDate=null;
-		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-			enteredDate = sdf.parse(date);
-		}catch (Exception ex)
-		{
-			throw new BadRequestException(MessageConstant.INVALID_DATE);
-		}
-		Date currentDate = new Date();      
-		if(enteredDate.after(currentDate)){
-			throw new BadRequestException(MessageConstant.INVALID_DATE);
-		}else
+
+			if(date == null || date.length() == 0) {
+				throw new BadRequestException(MessageConstant.INVALID_DATE_NOT_NULL);
+			}
+			Date enteredDate = null;
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				enteredDate = sdf.parse(date);
+			} catch (Exception e) {
+				throw new BadRequestException(MessageConstant.INVALID_DATE_FORMAT);
+			}
+
+			@SuppressWarnings("deprecation")
+			Date minimunDate = new Date(0, 0, 1);
+			Date currentDate = new Date();      
+			if(enteredDate.after(currentDate) || enteredDate.before(minimunDate)){
+				throw new BadRequestException(MessageConstant.AFTER_TODAY_MESSAGE);
+			}
+			
 			return true;
+		
 	}
 	
 	public static boolean validateDocument(String documentId, String documenType, boolean documentAlreadyExist) throws Exception {
