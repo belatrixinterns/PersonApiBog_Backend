@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface RelationshipRepository extends CrudRepository<RelationshipEntity, Integer>{
     List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson);
 
-	@Query(value ="SELECT * FROM relationship WHERE id_first_person = :firstIdPerson AND id_relationship = :idRelationship", nativeQuery = true)
+	@Query(value ="SELECT * FROM relationship WHERE id_second_person = :firstIdPerson AND id_relation_type = :idRelationship", nativeQuery = true)
     public List<RelationshipEntity> findByIdFirstPersonAndIdRelationship(Integer idRelationship, Integer firstIdPerson);
     //List<RelationshipEntity> findByIdFirstPersonAndIdSecondPerson(Integer idFirstPerson, Integer idSecondPerson);
 

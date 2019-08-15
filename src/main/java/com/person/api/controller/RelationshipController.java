@@ -3,6 +3,7 @@ package com.person.api.controller;
 import java.util.List;
 
 import com.person.api.constant.MessageConstant;
+import com.person.api.constant.TypeConstant;
 import com.person.api.dto.RelationshipDto;
 import com.person.api.entity.PersonEntity;
 import com.person.api.entity.RelationTypeEntity;
@@ -56,6 +57,16 @@ RelationshipRepository RelationshipRepository;
 				}
 				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId())){
 					throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
+				}
+				/*
+				if 0 pass, the relation doesnt exist
+				if -1 is because already exist father, mother, husband or wife
+				if n is because is a grandparent or brother
+				*/
+				if(relationshipService.findByIdFirstPersonAndIdRelationship(relationType.getId(), personTwo.getId()) == -1 || 
+				  (relationType.getId() == TypeConstant.RELATION_TYPE_GRANDMOTHER && relationshipService.findByIdFirstPersonAndIdRelationship(relationType.getId(), personTwo.getId()) >= 2) ||
+				  (relationType.getId() == TypeConstant.RELATION_TYPE_GRANDPARENT && relationshipService.findByIdFirstPersonAndIdRelationship(relationType.getId(), personTwo.getId()) >= 2)){
+						throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
 				}
 				return relationshipService.createRelationship(relationship);
 			}

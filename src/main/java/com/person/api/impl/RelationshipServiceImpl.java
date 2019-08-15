@@ -94,6 +94,7 @@ public class RelationshipServiceImpl implements RelationshipService{
         }
 	}
 
+	@Override
 	public Integer findByIdFirstPersonAndIdRelationship(Integer idRelationship, Integer firstIdPerson){
 		List<RelationshipEntity> searchRelationchip = relationshipRepository.findByIdFirstPersonAndIdRelationship(idRelationship, firstIdPerson);
 		if(searchRelationchip.size() > 0){
