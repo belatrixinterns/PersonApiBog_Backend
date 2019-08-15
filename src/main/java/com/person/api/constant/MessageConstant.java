@@ -6,7 +6,7 @@ public class MessageConstant {
 	    throw new IllegalStateException("Utility class");
 	  }
 	
-	public static final String AFTER_TODAY_MESSAGE = "The person must be exist, check the date";
+	public static final String AFTER_TODAY_MESSAGE = "The person can't not have a birth day which is a future date or a date before of 1900";
 	
 	public static final String DEFAULT_MESSAGE = "The app crashed, please contact to the administrator";
 	
