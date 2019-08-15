@@ -103,4 +103,10 @@ RelationshipRepository RelationshipRepository;
 		return relationshipService.deleteRelationship(personId);
 		
 	}
+
+	@CrossOrigin
+	@GetMapping(value = "/test/")
+	public List<RelationshipEntity> searchMultiple(@RequestBody RelationshipDto relationship) throws RelationshipNotFoundException {
+		return relationshipService.findByIdFirstPersonAndIdSecondPerson(Integer.parseInt(relationship.getIdFirstPerson()), Integer.parseInt(relationship.getIdSecondPerson()));
+	}
 }
