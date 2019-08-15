@@ -17,7 +17,7 @@ public class RelationshipEntity {
     private PersonEntity idFirstPerson;
     @Column(name = "id_second_person")
     private Integer idSecondPerson;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_relation_type")
     private RelationTypeEntity idRelationType;  
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.person.api.dto.RelationshipDto;
 import com.person.api.entity.RelationshipEntity;
+import com.person.api.exception.RelationshipNotFoundException;
 
 
 /**
@@ -13,15 +14,15 @@ public interface RelationshipService {
 
     List<RelationshipEntity> findAllRelationship();
 
-	public RelationshipEntity findRelationship(Integer id);
+	public RelationshipEntity findRelationship(Integer id) throws RelationshipNotFoundException;
 	
-	public RelationshipEntity updateRelationship(RelationshipDto relationship);
+	public RelationshipEntity updateRelationship(RelationshipDto relationship) throws RelationshipNotFoundException;
 
 	public RelationshipEntity createRelationship(RelationshipDto relationship);
 	
-	public RelationshipEntity deleteRelationship(Integer id);
+	public RelationshipEntity deleteRelationship(Integer id) throws RelationshipNotFoundException;
 
-	public List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson);
+	public List<RelationshipEntity> findByIdFirstPerson(Integer idFirstPerson) throws RelationshipNotFoundException;
 	
-	public List<RelationshipEntity> findByIdFirstPersonAndIdSecondPerson(Integer idFirstPerson, Integer idSecondPerson);
+	public List<RelationshipEntity> findByIdFirstPersonAndIdSecondPerson(Integer idFirstPerson, Integer idSecondPerson) throws RelationshipNotFoundException;
 }

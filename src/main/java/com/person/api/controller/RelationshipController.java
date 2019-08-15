@@ -9,7 +9,7 @@ import com.person.api.entity.RelationTypeEntity;
 import com.person.api.entity.RelationshipEntity;
 import com.person.api.exception.BadRequestException;
 import com.person.api.exception.MismatchTypeFieldException;
-import com.person.api.exception.UserNotFoundException;
+import com.person.api.exception.RelationshipNotFoundException;
 import com.person.api.repository.RelationshipRepository;
 import com.person.api.service.PersonService;
 import com.person.api.service.RelationTypeService;
@@ -41,14 +41,14 @@ RelationshipRepository RelationshipRepository;
 	@PostMapping("/")
 	public RelationshipEntity createRelationship(@RequestBody RelationshipDto relationship) throws Exception{
 		try {
-			if(GeneralValidator.validatePerson(relationship.getIdFirstPerson()) || GeneralValidator.validateRelationType(relationship.getIdRelationType()) 
-				|| GeneralValidator.validatePerson(relationship.getIdSecondPerson())){
+			if(GeneralValidator.validatePerson(relationship.getIdFirstPerson()) && GeneralValidator.validatePerson(relationship.getIdSecondPerson()) 
+			&& GeneralValidator.validateRelationType(relationship.getIdRelationType())){
 				
 				PersonEntity personOne = personService.findPerson(Integer.parseInt(relationship.getIdFirstPerson()));
 				PersonEntity personTwo = personService.findPerson(Integer.parseInt(relationship.getIdSecondPerson()));
 				RelationTypeEntity relationType = relationTypeService.findRelationType(Integer.parseInt(relationship.getIdRelationType()));
 
-				if(!GeneralValidator.validatePersonExists(personOne, personTwo) || !GeneralValidator.validateRelationTypeExists(relationType)){
+				if(!GeneralValidator.validatePersonExists(personOne, personTwo) && !GeneralValidator.validateRelationTypeExists(relationType)){
 					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 				}
 				if(!GeneralValidator.validateRelationIntegrity(personOne, personTwo, relationType)){
@@ -72,7 +72,7 @@ RelationshipRepository RelationshipRepository;
 
 	@CrossOrigin
     @GetMapping("/{id}")
-	public RelationshipEntity getRelationship(@PathVariable String id) throws UserNotFoundException, MismatchTypeFieldException  {
+	public RelationshipEntity getRelationship(@PathVariable String id) throws RelationshipNotFoundException, MismatchTypeFieldException  {
 
 		Integer personId = GeneralValidator.validateId(id);
 		return relationshipService.findRelationship(personId);
@@ -82,7 +82,8 @@ RelationshipRepository RelationshipRepository;
 	@PutMapping("/{id}")
 	public RelationshipEntity updateRelationship(@PathVariable Integer id, @RequestBody RelationshipDto relationship) throws Exception{
 		try {
-			if(GeneralValidator.validatePerson(relationship.getIdFirstPerson()) || GeneralValidator.validateRelationType(relationship.getIdRelationType()) || GeneralValidator.validatePerson(relationship.getIdSecondPerson())){
+			if(GeneralValidator.validatePerson(relationship.getIdFirstPerson()) && GeneralValidator.validatePerson(relationship.getIdSecondPerson()) 
+				&& GeneralValidator.validateRelationType(relationship.getIdRelationType())){
 				return relationshipService.updateRelationship(relationship);
 			}
 			else{
@@ -96,7 +97,7 @@ RelationshipRepository RelationshipRepository;
 	
 	@CrossOrigin
 	@DeleteMapping(value = "/{id}")
-	public RelationshipEntity deleteRelationship(@PathVariable String id) throws UserNotFoundException, MismatchTypeFieldException{
+	public RelationshipEntity deleteRelationship(@PathVariable String id) throws RelationshipNotFoundException, MismatchTypeFieldException{
 		
 		Integer personId = GeneralValidator.validateId(id);
 		return relationshipService.deleteRelationship(personId);

@@ -19,8 +19,6 @@ import com.person.api.exception.InvalidRelationTypeException;
 import com.person.api.exception.MismatchTypeFieldException;
 import com.person.api.exception.UserHasAlreadyExistException;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 public class GeneralValidator {
 
 	private GeneralValidator() {
@@ -194,10 +192,12 @@ public class GeneralValidator {
 	}
 
 	public static boolean validateRelationIntegrity(PersonEntity personOne, PersonEntity personTwo, RelationTypeEntity relationType) throws BadRequestException{
-		if(personOne.getGender() == "1" && (relationType.getId() == 2 || relationType.getId() == 4 || relationType.getId() == 6)){
+		if(personOne.getGender().equals(TypeConstant.GENDER_MASCULINE.toString()) && (relationType.getId() == TypeConstant.RELATION_TYPE_MOTHER 
+			|| relationType.getId() == TypeConstant.RELATION_TYPE_SISTER || relationType.getId() == TypeConstant.RELATION_TYPE_GRANDMOTHER)){
 			throw new BadRequestException(MessageConstant.INVALID_RELATION_POSIBILITY);
 		}
-		if(personOne.getGender() == "1" && (relationType.getId() == 1 || relationType.getId() == 3 || relationType.getId() == 5)){
+		if(personOne.getGender().equals(TypeConstant.GENDER_FEMENINE.toString())  && (relationType.getId() == TypeConstant.RELATION_TYPE_FATHER 
+			|| relationType.getId() == TypeConstant.RELATION_TYPE_BROTHER || relationType.getId() == TypeConstant.RELATION_TYPE_GRANDPARENT)){
 			throw new BadRequestException(MessageConstant.INVALID_RELATION_POSIBILITY);
 		}
 		return true;

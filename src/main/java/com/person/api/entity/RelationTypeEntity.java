@@ -1,13 +1,14 @@
 package com.person.api.entity;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,8 +21,8 @@ public class RelationTypeEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "idRelationType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private RelationshipEntity relation;
+    @OneToMany(mappedBy = "idRelationType", cascade = CascadeType.ALL)
+    private Set<RelationshipEntity> relation;
 
     public RelationTypeEntity(){
     }
