@@ -121,4 +121,19 @@ public class RelationshipServiceImpl implements RelationshipService{
 			throw new Exception(MessageConstant.DEFAULT_MESSAGE);
 		}
 	}
+
+	@Override
+	public Integer findAnotherRelationship(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationship){
+		List<RelationshipEntity> searchRelationchip = relationshipRepository.findAnotherRelationship(idFirstPerson, idSecondPerson, idRelationship);
+		if(searchRelationchip.size() > 0){
+			if(idRelationship == TypeConstant.RELATION_TYPE_BROTHER || idRelationship == TypeConstant.RELATION_TYPE_GRANDMOTHER || idRelationship == TypeConstant.RELATION_TYPE_GRANDPARENT ){
+				return searchRelationchip.size();
+			}
+			else{
+				return -1;
+			}
+		}
+		return 0;
+
+	}
 }

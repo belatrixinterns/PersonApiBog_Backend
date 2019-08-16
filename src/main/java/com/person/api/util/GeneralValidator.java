@@ -147,6 +147,9 @@ public class GeneralValidator {
 	}
 
 	public static boolean validatePerson(String id) throws BadRequestException{
+		if(id == null || id.isEmpty()){
+			throw new BadRequestException(MessageConstant.INVALID_USER_NOT_NULL);
+		}
 		Pattern lettersPattern = Pattern.compile("[a-zA-Z]", Pattern.CASE_INSENSITIVE);
 		Pattern numericPattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
 		Matcher matcherLetters = lettersPattern.matcher(id);
@@ -154,14 +157,14 @@ public class GeneralValidator {
 		if (matcherLetters.find() || !matcherNumeric.find()){
 			throw new BadRequestException(MessageConstant.INVALID_USER_ID_FORMAT);
 		}
-		if(id == null || id.isEmpty()){
-			throw new BadRequestException(MessageConstant.INVALID_USER_NOT_NULL);
-		}
 		return true;
 
 	}
 
 	public static boolean validateRelationType(String id) throws BadRequestException, InvalidRelationTypeException{
+		if(id == null || id.isEmpty()){
+			throw new BadRequestException(MessageConstant.INVALID_RELATION_NOT_NULL);
+		}
 		Pattern lettersPattern = Pattern.compile("[a-zA-Z]", Pattern.CASE_INSENSITIVE);
 		Pattern numericPattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
 		Matcher matcherLetters = lettersPattern.matcher(id);
@@ -169,9 +172,7 @@ public class GeneralValidator {
 		if (matcherLetters.find() || !matcherNumeric.find()){
 			throw new BadRequestException(MessageConstant.INVALID_RELATION_TYPE_ID_FORMAT);
 		}
-		if(id == null || id.isEmpty()){
-			throw new BadRequestException(MessageConstant.INVALID_USER_NOT_NULL);
-		}
+		
 		return true;
 	}
 

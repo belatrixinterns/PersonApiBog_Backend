@@ -29,4 +29,6 @@ public interface RelationshipService {
 	public Integer findByIdFirstPersonAndIdRelationship(Integer idRelationship, Integer firstIdPerson);
 	
 	public boolean findRelationshipExistence(Integer idFirstPerson, Integer idSecondPerson) throws Exception;
+
+	public Integer findAnotherRelationship(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationship);
 }

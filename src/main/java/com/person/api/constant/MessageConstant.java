@@ -89,4 +89,6 @@ public class MessageConstant {
 	public static final String INVALID_RELATION_ONLY_TWO_GRANDPARENTS = "The relation two relations allready exist.";
 
 	public static final String RELATIONSHIP_EXISTS = "The relationship already exists.";
+
+	public static final String INVALID_RELATION_NOT_NULL = "The relation type can't be empty";
 }
