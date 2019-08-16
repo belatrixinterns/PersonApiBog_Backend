@@ -38,6 +38,8 @@ public class PersonEntity {
     @OneToMany(mappedBy = "idFirstPerson", cascade = CascadeType.ALL)
     private Set<RelationshipEntity> relationship;
 
+    @OneToMany(mappedBy = "idSecondPerson", cascade = CascadeType.ALL)
+    private Set<RelationshipEntity> relationshipPersonTwo;
 
     public PersonEntity(){
     }
