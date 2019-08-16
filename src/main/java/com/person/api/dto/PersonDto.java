@@ -1,7 +1,5 @@
 package com.person.api.dto;
 
-import java.util.Date;
-
 /**
  * UsuarioDto
  */
@@ -10,13 +8,13 @@ public class PersonDto {
     private String documentId;
     private String name;
     private String lastName;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String documentType;
     private String gender;
     private String nationality;
     private String contact;
     
-    public PersonDto(String documentId, String name, String lastName, Date dateOfBirth, String documentType, String gender, String nationality, String contact){
+    public PersonDto(String documentId, String name, String lastName, String dateOfBirth, String documentType, String gender, String nationality, String contact){
         this.documentId=documentId;
         this.name=name;
         this.lastName=lastName;
@@ -35,7 +33,7 @@ public class PersonDto {
     /**
      * @return the date_of_birth
      */
-    public Date getDate_of_birth() {
+    public String getDate_of_birth() {
         return dateOfBirth;
     }
     /**
@@ -94,7 +92,7 @@ public class PersonDto {
     /**
      * @param date_of_birth the date_of_birth to set
      */
-    public void setDate_of_birth(Date date_of_birth) {
+    public void setDate_of_birth(String date_of_birth) {
         this.dateOfBirth = date_of_birth;
     }
     /**
