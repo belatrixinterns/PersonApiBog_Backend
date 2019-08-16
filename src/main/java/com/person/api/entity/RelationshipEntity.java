@@ -15,8 +15,9 @@ public class RelationshipEntity {
     @ManyToOne
     @JoinColumn(name = "id_first_person")
     private PersonEntity idFirstPerson;
-    @Column(name = "id_second_person")
-    private Integer idSecondPerson;
+    @ManyToOne
+    @JoinColumn(name = "id_second_person")
+    private PersonEntity idSecondPerson;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_relation_type")
     private RelationTypeEntity idRelationType;  
@@ -26,7 +27,7 @@ public class RelationshipEntity {
 
     public RelationshipEntity(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationType){
         this.idFirstPerson = new PersonEntity(idFirstPerson);
-        this.idSecondPerson = idSecondPerson;
+        this.idSecondPerson = new PersonEntity(idSecondPerson);
         this.idRelationType = new RelationTypeEntity(idRelationType);
     }
 
@@ -52,7 +53,7 @@ public class RelationshipEntity {
      * @return the idSecondPerson
      */
     public Integer getIdSecondPerson() {
-        return idSecondPerson;
+        return idSecondPerson.getId();
     }
     /**
      * @param id the id to set
@@ -76,6 +77,6 @@ public class RelationshipEntity {
      * @param idSecondPerson the idSecondPerson to set
      */
     public void setIdSecondPerson(Integer idSecondPerson) {
-        this.idSecondPerson = idSecondPerson;
+        this.idSecondPerson.setId(idSecondPerson);;
     }
 }
