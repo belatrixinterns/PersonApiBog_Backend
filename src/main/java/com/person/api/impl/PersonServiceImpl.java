@@ -63,6 +63,7 @@ public class PersonServiceImpl implements PersonService{
     		personM.setLast_name(person.getLast_name());
     		personM.setName(person.getName());
     		personM.setNationality(person.getNationality());
+    		personM.setContact(person.getContact());
     		return personRepository.save(personM);
     		
 		} catch (Exception e) {
