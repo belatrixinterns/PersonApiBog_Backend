@@ -55,10 +55,10 @@ RelationshipRepository RelationshipRepository;
 				if(!GeneralValidator.validateRelationIntegrity(personOne, personTwo, relationType)){
 					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 				}
-
-				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId())){
+				/*
+				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId(), relationType.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId(), relationType.getId())){
 					throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
-				}
+				}*/
 				/*
 				if 0 pass, the relation doesnt exist
 				if -1 is because already exist father, mother, husband or wife

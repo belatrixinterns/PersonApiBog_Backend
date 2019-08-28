@@ -64,19 +64,19 @@ public class RelationshipEntity {
     /**
      * @param idFirstPerson the idFirstPerson to set
      */
-    public void setIdFirstPerson(Integer idFirstPerson) {
-        this.idFirstPerson.setId(idFirstPerson);
+    public void setIdFirstPerson(PersonEntity idFirstPerson) {
+        this.idFirstPerson = idFirstPerson;
     }
     /**
      * @param idRelationType the idRelationType to set
      */
-    public void setIdRelationType(Integer idRelationType) {
-        this.idRelationType.setId(idRelationType);
+    public void setIdRelationType(RelationTypeEntity idRelationType) {
+        this.idRelationType = idRelationType;
     }
     /**
      * @param idSecondPerson the idSecondPerson to set
      */
-    public void setIdSecondPerson(Integer idSecondPerson) {
-        this.idSecondPerson.setId(idSecondPerson);;
+    public void setIdSecondPerson(PersonEntity idSecondPerson) {
+        this.idSecondPerson = idSecondPerson;
     }
 }
