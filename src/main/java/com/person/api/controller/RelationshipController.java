@@ -2,12 +2,15 @@ package com.person.api.controller;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.dto.RelationshipDto;
 import com.person.api.entity.PersonEntity;
 import com.person.api.entity.RelationTypeEntity;
 import com.person.api.entity.RelationshipEntity;
+import com.person.api.entity.RelationshipListNamesEntity;
 import com.person.api.exception.BadRequestException;
 import com.person.api.exception.MismatchTypeFieldException;
 import com.person.api.exception.RelationshipNotFoundException;
@@ -84,6 +87,13 @@ RelationshipRepository RelationshipRepository;
     public List<RelationshipEntity> getAllRelationship() {
         return relationshipService.findAllRelationship();
     }
+	
+	@CrossOrigin
+    @GetMapping("/names/")
+    public List<RelationshipListNamesEntity> getAllRelationshipWithNamesData() {
+        return relationshipService.findAllRelationshipWithNames();
+    }
+
 
 	@CrossOrigin
     @GetMapping("/{id}")

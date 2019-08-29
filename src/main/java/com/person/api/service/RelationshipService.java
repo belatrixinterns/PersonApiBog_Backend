@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.person.api.dto.RelationshipDto;
 import com.person.api.entity.RelationshipEntity;
+import com.person.api.entity.RelationshipListNamesEntity;
 import com.person.api.exception.RelationshipNotFoundException;
 
 
@@ -13,6 +14,8 @@ import com.person.api.exception.RelationshipNotFoundException;
 public interface RelationshipService {
 
     List<RelationshipEntity> findAllRelationship();
+    
+    List<RelationshipListNamesEntity> findAllRelationshipWithNames();
 
 	public RelationshipEntity findRelationship(Integer id) throws RelationshipNotFoundException;
 	
@@ -31,4 +34,5 @@ public interface RelationshipService {
 	public boolean findRelationshipExistence(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationship) throws Exception;
 
 	public Integer findAnotherRelationship(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationship);
+
 }
