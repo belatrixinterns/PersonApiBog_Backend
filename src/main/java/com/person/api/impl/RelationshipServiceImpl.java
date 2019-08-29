@@ -9,12 +9,15 @@ import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.converter.RelationshipConverter;
 import com.person.api.dto.RelationshipDto;
+
 import com.person.api.entity.PersonEntity;
 import com.person.api.entity.RelationTypeEntity;
 import com.person.api.entity.RelationshipEntity;
+import com.person.api.entity.RelationshipListNamesEntity;
 import com.person.api.exception.RelationshipNotFoundException;
 import com.person.api.repository.PersonRepository;
 import com.person.api.repository.RelationTypeRepository;
+import com.person.api.repository.RelationshipListNameRepository;
 import com.person.api.repository.RelationshipRepository;
 import com.person.api.service.RelationshipService;
 
@@ -26,6 +29,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RelationshipServiceImpl implements RelationshipService{
+	
+
+	@Autowired
+	RelationshipListNameRepository relationshipListNameRepository;
+
     @Autowired
 	RelationshipRepository relationshipRepository;
 
@@ -38,6 +46,11 @@ public class RelationshipServiceImpl implements RelationshipService{
     @Override
     public List<RelationshipEntity> findAllRelationship(){
 		return StreamSupport.stream(relationshipRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<RelationshipListNamesEntity> findAllRelationshipWithNames(){
+    	return StreamSupport.stream(relationshipListNameRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
     
     @Override
