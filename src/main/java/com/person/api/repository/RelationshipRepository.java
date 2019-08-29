@@ -26,4 +26,6 @@ public interface RelationshipRepository extends CrudRepository<RelationshipEntit
     @Query(value ="SELECT * FROM relationship WHERE id_first_person = :firstId AND id_second_person = :secondId", nativeQuery = true)
     List<RelationshipEntity> findRelationshipExistence(@Param("firstId") Integer idFirstPerson, @Param("secondId") Integer idSecondPerson);
 
+    @Query(value ="SELECT * FROM relationship WHERE id_first_person = :firstId AND id_second_person = :secondId AND id != :idRelationship", nativeQuery = true)
+    List<RelationshipEntity> findAnotherRelationship(@Param("firstId") Integer idFirstPerson, @Param("secondId") Integer idSecondPerson, @Param("idRelationship") Integer idRelationship);
 }

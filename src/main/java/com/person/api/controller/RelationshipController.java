@@ -55,9 +55,10 @@ RelationshipRepository RelationshipRepository;
 				if(!GeneralValidator.validateRelationIntegrity(personOne, personTwo, relationType)){
 					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 				}
-				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId())){
+				/*
+				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId(), relationType.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId(), relationType.getId())){
 					throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
-				}
+				}*/
 				/*
 				if 0 pass, the relation doesnt exist
 				if -1 is because already exist father, mother, husband or wife
@@ -94,10 +95,33 @@ RelationshipRepository RelationshipRepository;
 	
 	@CrossOrigin
 	@PutMapping("/{id}")
-	public RelationshipEntity updateRelationship(@PathVariable Integer id, @RequestBody RelationshipDto relationship) throws Exception{
+	public RelationshipEntity updateRelationship(@PathVariable String id, @RequestBody RelationshipDto relationship) throws Exception{
 		try {
+			Integer idRelationShip = GeneralValidator.validateId(id);
+
 			if(GeneralValidator.validatePerson(relationship.getIdFirstPerson()) && GeneralValidator.validatePerson(relationship.getIdSecondPerson()) 
 				&& GeneralValidator.validateRelationType(relationship.getIdRelationType())){
+				
+					relationship.setId(idRelationShip);
+
+				PersonEntity personOne = personService.findPerson(Integer.parseInt(relationship.getIdFirstPerson()));
+				PersonEntity personTwo = personService.findPerson(Integer.parseInt(relationship.getIdSecondPerson()));
+				RelationTypeEntity relationType = relationTypeService.findRelationType(Integer.parseInt(relationship.getIdRelationType()));	
+
+				if(!GeneralValidator.validatePersonExists(personOne, personTwo) && !GeneralValidator.validateRelationTypeExists(relationType)){
+					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
+				}
+				if(!GeneralValidator.validateRelationIntegrity(personOne, personTwo, relationType)){
+					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
+				}
+
+				Integer relaciones = (relationshipService.findAnotherRelationship(relationType.getId(), personTwo.getId(), idRelationShip));
+
+				if(relaciones == -1 || 
+				  (relationType.getId() == TypeConstant.RELATION_TYPE_GRANDMOTHER && relaciones >= 2) ||
+				  (relationType.getId() == TypeConstant.RELATION_TYPE_GRANDPARENT && relaciones >= 2)){
+						throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
+				}
 				return relationshipService.updateRelationship(relationship);
 			}
 			else{

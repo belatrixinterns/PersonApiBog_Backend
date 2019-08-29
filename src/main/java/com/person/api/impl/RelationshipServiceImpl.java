@@ -9,8 +9,12 @@ import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.converter.RelationshipConverter;
 import com.person.api.dto.RelationshipDto;
+import com.person.api.entity.PersonEntity;
+import com.person.api.entity.RelationTypeEntity;
 import com.person.api.entity.RelationshipEntity;
 import com.person.api.exception.RelationshipNotFoundException;
+import com.person.api.repository.PersonRepository;
+import com.person.api.repository.RelationTypeRepository;
 import com.person.api.repository.RelationshipRepository;
 import com.person.api.service.RelationshipService;
 
@@ -24,6 +28,12 @@ import org.springframework.stereotype.Service;
 public class RelationshipServiceImpl implements RelationshipService{
     @Autowired
 	RelationshipRepository relationshipRepository;
+
+	@Autowired
+	PersonRepository personRepository;
+
+	@Autowired
+	RelationTypeRepository relationTypeRepository;
 	
     @Override
     public List<RelationshipEntity> findAllRelationship(){
@@ -49,11 +59,16 @@ public class RelationshipServiceImpl implements RelationshipService{
     	}
 		
 		RelationshipEntity relationshipM = relation.get();
+		
+		Optional<PersonEntity> personOne = personRepository.findById(Integer.parseInt(relationship.getIdFirstPerson()));
+		Optional<PersonEntity> personTwo = personRepository.findById(Integer.parseInt(relationship.getIdSecondPerson()));
+		Optional<RelationTypeEntity> relationType = relationTypeRepository.findById(Integer.parseInt(relationship.getIdRelationType()));
+
 
 		//update fields
-		relationshipM.setIdFirstPerson(Integer.parseInt(relationship.getIdFirstPerson()));
-		relationshipM.setIdSecondPerson(Integer.parseInt(relationship.getIdSecondPerson()));
-		relationshipM.setIdRelationType(Integer.parseInt(relationship.getIdRelationType()));
+		relationshipM.setIdFirstPerson(personOne.get());
+		relationshipM.setIdSecondPerson(personTwo.get());
+		relationshipM.setIdRelationType(relationType.get());
 		return relationshipRepository.save(relationshipM);
 	}
 
@@ -110,9 +125,9 @@ public class RelationshipServiceImpl implements RelationshipService{
 
 	
 	@Override
-	public boolean findRelationshipExistence(Integer idFirstPerson, Integer idSecondPerson) throws Exception{
+	public boolean findRelationshipExistence(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationship) throws Exception{
 		List<RelationshipEntity> relationship = relationshipRepository.findRelationshipExistence(idFirstPerson, idSecondPerson);
-		if(relationship.size() > 0) {
+		if(relationship.size() > 0 ) {
         	return true;
         }else if(relationship.size() == 0){
         	return false;
@@ -120,5 +135,20 @@ public class RelationshipServiceImpl implements RelationshipService{
 		else{
 			throw new Exception(MessageConstant.DEFAULT_MESSAGE);
 		}
+	}
+
+	@Override
+	public Integer findAnotherRelationship(Integer idFirstPerson, Integer idSecondPerson, Integer idRelationship){
+		List<RelationshipEntity> searchRelationchip = relationshipRepository.findAnotherRelationship(idFirstPerson, idSecondPerson, idRelationship);
+		if(searchRelationchip.size() > 0){
+			if(idRelationship == TypeConstant.RELATION_TYPE_BROTHER || idRelationship == TypeConstant.RELATION_TYPE_GRANDMOTHER || idRelationship == TypeConstant.RELATION_TYPE_GRANDPARENT ){
+				return searchRelationchip.size();
+			}
+			else{
+				return -1;
+			}
+		}
+		return 0;
+
 	}
 }
