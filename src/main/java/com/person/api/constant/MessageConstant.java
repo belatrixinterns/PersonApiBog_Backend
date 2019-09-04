@@ -91,4 +91,6 @@ public class MessageConstant {
 	public static final String RELATIONSHIP_EXISTS = "The relationship already exists.";
 
 	public static final String INVALID_RELATION_NOT_NULL = "The relation type can't be empty";
+
+	public static final String INVALID_RELATION_TO_THE_SAME_PERSON = "A person can't be used in fields 'personOne' and 'personTwo' at the same time.";
 }

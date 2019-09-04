@@ -230,5 +230,12 @@ public class GeneralValidator {
 		
 		return true;
 	}
+
+	public static boolean relationToItself(String idFirstPerson, String idSecondPerson) throws BadRequestException{
+		if(idFirstPerson.toString().equals(idSecondPerson.toString())){
+			throw new BadRequestException(MessageConstant.INVALID_RELATION_TO_THE_SAME_PERSON);
+		}
+		return false;
+	}
 	
 }
