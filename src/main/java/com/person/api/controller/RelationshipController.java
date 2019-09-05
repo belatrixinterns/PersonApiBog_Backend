@@ -2,8 +2,6 @@ package com.person.api.controller;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.person.api.constant.MessageConstant;
 import com.person.api.constant.TypeConstant;
 import com.person.api.dto.RelationshipDto;
@@ -58,10 +56,14 @@ RelationshipRepository RelationshipRepository;
 				if(!GeneralValidator.validateRelationIntegrity(personOne, personTwo, relationType)){
 					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 				}
-				
+
 				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId(), relationType.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId(), relationType.getId())){
 					throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
 				}
+				if(GeneralValidator.relationToItself(relationship.getIdFirstPerson(), relationship.getIdSecondPerson())){
+					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
+				}
+
 				/*
 				if 0 pass, the relation doesnt exist
 				if -1 is because already exist father, mother, husband or wife
@@ -122,6 +124,14 @@ RelationshipRepository RelationshipRepository;
 					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 				}
 				if(!GeneralValidator.validateRelationIntegrity(personOne, personTwo, relationType)){
+					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
+				}
+				
+				if(relationshipService.findRelationshipExistence(personOne.getId(), personTwo.getId(), relationType.getId()) || relationshipService.findRelationshipExistence(personTwo.getId(), personOne.getId(), relationType.getId())){
+					throw new BadRequestException(MessageConstant.RELATIONSHIP_EXISTS);
+				}
+				
+				if(GeneralValidator.relationToItself(relationship.getIdFirstPerson(), relationship.getIdSecondPerson())){
 					throw new BadRequestException(MessageConstant.INVALID_FORMAT);
 				}
 
